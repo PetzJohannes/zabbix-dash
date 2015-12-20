@@ -3,31 +3,31 @@
     margin-left: 0px;
 }
 
-.label-font-color {
+.trigger-label-font-color {
     color: #eee;
 }
 
-.label-disaster {
+.trigger-label-disaster {
     background-color: #FF3838;
 }
 
-.label-high {
+.trigger-label-high {
     background-color: #FF9999;
 }
 
-.label-average {
+.trigger-label-average {
     background-color: #FFB689;
 }
 
-.label-warning {
+.trigger-label-warning {
     background-color: #FFF6A5;
 }
 
-.label-information {
+.trigger-label-information {
     background-color: #D6F6FF;
 }
 
-.label-notclassified {
+.trigger-label-notclassified {
     background-color: #DBDBDB;
 }
 

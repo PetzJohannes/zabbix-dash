@@ -6,6 +6,7 @@ define(['jquery', 'zabbix', 'libs/formatter'], function( $, zabbix, formatter ) 
               button.prop('disabled', true);
               var usernameField = $( "input[name='username']" ),
                   passwordField = $( "input[name='password']" ),
+                  url = $( "input[name='url']").val(),
                   username = usernameField.val(),
                   password = passwordField.val(),
                   usernameok = formatter.inputValidate(usernameField, username),
@@ -45,6 +46,7 @@ define(['jquery', 'zabbix', 'libs/formatter'], function( $, zabbix, formatter ) 
        apiversion: function () {
            var urlField = $( "input[name='url']"),
                urlFieldSpan = $( "#zabbix-version" ),
+               loginButton = $( '#zbxlogin' );
                success = function ( response, status ) {
                    urlFieldSpan.removeAttr('class');
                    if ( response.result === "2.4.6" ) {
@@ -52,11 +54,13 @@ define(['jquery', 'zabbix', 'libs/formatter'], function( $, zabbix, formatter ) 
                    } else {
                        urlFieldSpan.addClass("label label-warning");
                    }
+                   loginButton.prop('disabled', false);
                    urlFieldSpan.text(response.result);
                },
                error = function ( response, status ) {
                    urlFieldSpan.removeAttr('class').addClass("label label-danger");
                    urlFieldSpan.text("No valid url");
+                   loginButton.prop('disabled', true);
                },
                getVersion = function () {
                    zabbix.zabbixAjax("apiinfo.version", [], success, error, false);
@@ -71,7 +75,7 @@ define(['jquery', 'zabbix', 'libs/formatter'], function( $, zabbix, formatter ) 
                    localStorage.setItem('zbxurl', url);
                    getVersion();
                } else {
-                   error;
+                   error();
                }
            });
        }
