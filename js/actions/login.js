@@ -6,16 +6,10 @@ define(['jquery', 'zabbix', 'libs/formatter'], function( $, zabbix, formatter ) 
               button.prop('disabled', true);
               var usernameField = $( "input[name='username']" ),
                   passwordField = $( "input[name='password']" ),
-                  urlField = $( "input[name='url']" ),
                   username = usernameField.val(),
                   password = passwordField.val(),
-                  url = urlField.val();
-              var usernameok = formatter.inputValidate(usernameField, username);
-              var passwordok = formatter.inputValidate(passwordField, password);
-              var urlok = formatter.inputValidate(urlField, url);
-              if ( urlok === true ) {
-                  localStorage.setItem('zbxurl', url);
-              }
+                  usernameok = formatter.inputValidate(usernameField, username),
+                  passwordok = formatter.inputValidate(passwordField, password);
               if ( usernameok === true && passwordok === true ) {
                  zabbix.zabbixLogin(username, password, url)
               } else {
@@ -38,7 +32,47 @@ define(['jquery', 'zabbix', 'libs/formatter'], function( $, zabbix, formatter ) 
                html: true,
                content: '<p>Log in with your Zabbix Frontend username and password.</p>' +
                    '<div class="alert alert-info" role="alert">Username is case sensitiv!</div>' +
-                   '<div class="alert alert-warning" role="alert">URL Format must be <code>https://zabbix.example.com/</code> The last Slash (/) is required!</div>'
+                   '<div class="alert alert-warning" role="alert">URL Format must be <code>https://zabbix.example.com/</code> The last Slash (/) is required!</div>' +
+                   '<p>Zabbix API Version:' +
+                   '<ul>' +
+                       '<li>Green: all is okay</li>' +
+                       '<li>Yellow: API version is not tested</li>' +
+                       '<li>Red: No API detected</li>' +
+                       '<li>Grey: Not detected yet</li>' +
+                   '</ul></p>'
+           });
+       },
+       apiversion: function () {
+           var urlField = $( "input[name='url']"),
+               urlFieldSpan = $( "#zabbix-version" ),
+               success = function ( response, status ) {
+                   urlFieldSpan.removeAttr('class');
+                   if ( response.result === "2.4.6" ) {
+                       urlFieldSpan.addClass("label label-success");
+                   } else {
+                       urlFieldSpan.addClass("label label-warning");
+                   }
+                   urlFieldSpan.text(response.result);
+               },
+               error = function ( response, status ) {
+                   urlFieldSpan.removeAttr('class').addClass("label label-danger");
+                   urlFieldSpan.text("No valid url");
+               },
+               getVersion = function () {
+                   zabbix.zabbixAjax("apiinfo.version", [], success, error, false);
+               };
+           if ( localStorage.getItem('zbxurl') !== undefined ) {
+               getVersion();
+           }
+           urlField.on('blur', function () {
+               var url = urlField.val(),
+                   urlok = formatter.inputValidate(urlField, url);
+               if ( urlok === true ) {
+                   localStorage.setItem('zbxurl', url);
+                   getVersion();
+               } else {
+                   error;
+               }
            });
        }
    }
