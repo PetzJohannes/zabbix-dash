@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+      <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+      <title>Zabbix Dash</title>
+      <!-- Bootstrap -->
+      <link href="css/bootstrap.min.css" rel="stylesheet">
+      <link href="css/bootstrap-table.min.css" rel="stylesheet">
+      <link href="css/nprogress.css" rel="stylesheet">
+      <link href="css/my.css" rel="stylesheet">
+      <script data-main="js/main" src="js/libs/require.js"></script>
+  </head>
+  <body>
+      <div class="container-fluid">
+          <div id="menu">
+          </div>
+      </div>
+      <div id="content" class="container">
+      </div>
+      <script>
+          require(['main'], function () {
+              require(['loader', 'domready'], function(methods, domReady) {
+                  domReady(function () {
+                      if ( localStorage.getItem('zbxauth') === null ) {
+                          methods.siteLoader($( "#content" ), "login");
+                      } else {
+                          methods.siteLoader($( "#menu" ), "navbar");
+                          methods.siteLoader($( "#content" ), "trigger");
+                      }
+                  });
+              })
+          });
+      </script>
+  </body>
+</html>

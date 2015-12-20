@@ -1,0 +1,54 @@
+<div id="faillogin" class="modal fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content panel-danger">
+            <div class="modal-header panel-heading">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Login failed</h4>
+            </div>
+            <div class="modal-body">
+                <p id="failmessage"></p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container form-container">
+    <form class="form-signin" autocomplete="off">
+        <div class="page-header">
+            <h1>Zabbix Dash</h1>
+            <h3><small>A Simple Zabbix API Dashboard</small></h3>
+        </div>
+        <div class="form-group">
+            <input autofocus name="username" class="form-control" placeholder="Username" type="text">
+        </div>
+        <div class="form-group">
+            <input name="password" class="form-control" placeholder="Password" type="password">
+        </div>
+        <div class="form-group">
+            <input name="url" class="form-control" placeholder="https://zabbix.com/zabbix/" type="text">
+        </div>
+        <div class="pull-right">
+            <button id="loginhelp" type="button" class="btn btn-default" data-toggle="help">
+                Need help?
+            </button>
+        </div>
+        <div>
+            <input id="zbxlogin" class="btn btn-lg btn-primary btn-block" value="Sign in">
+        </div>
+    </form>
+</div>
+
+<script>
+    require(['main'], function () {
+        require(['actions/login', 'domready'], function (methods, domReady) {
+            domReady(function () {
+                methods.loginHandler();
+                methods.urlFiller();
+                methods.help();
+            });
+        });
+    });
+</script>
