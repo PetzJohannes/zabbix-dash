@@ -48,12 +48,14 @@ define(['jquery'], function () {
             this.zabbixAjax(method, params, success, error);
         },
         zabbixAjax: function (method, params, success, error, global) {
+            success = typeof success !== 'undefined' ? success : function (response, status) { console.log(response) };
+            error = typeof error !== 'undefined' ? error : function (response, status) { console.log(response) };
             global = typeof global !== 'undefined' ? global : true;
+
             var rpcid = 0;
             // Require Zabbix API Parameter
             params = $.extend({
-                extendoutput: true,
-                limit: 100
+                extendoutput: true
             }, params);
 
             $.ajax({

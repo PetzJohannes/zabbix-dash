@@ -25,10 +25,14 @@ To use this dashboard, clone the repository and upload the files to a web server
 - Search trigger by description
 - Sort triggers by date, trigger description, priority (ASC and DESC)
 
+## Dashboard
+- Count trigger of all prioritys
+
 # Roadmap
 - Acknowlegde trigger events
 - Host overview
 - Item overview
+- Autorefresh on dashboard
 
 # Bugs
 - Trigger date month false return value

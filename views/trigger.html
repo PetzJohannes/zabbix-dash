@@ -1,22 +1,20 @@
-<div class="container">
-    <table id="triggertable"
-           data-show-refresh="true"
-           data-side-pagination="server"
-           data-sort-name="lastchange"
-           data-sort-order="DESC"
-           data-search="true"
-            >
-        <thead>
-        <tr>
-            <th data-field="lastchange" data-formatter="formatTime" data-sortable="true">Date</th>
-            <th data-field="description" data-sortable="true">Trigger description</th>
-            <th data-field="priority" data-formatter="formatTriggerPriority" data-sortable="true">Priority</th>
-            <th data-field="hosts.0.host">Hostname</th>
-            <th data-field="lastEvent.acknowledged" data-formatter="formatAcknowledge">Acknowledge</th>
-        </tr>
-        </thead>
-    </table>
-</div>
+<table id="triggertable"
+       data-show-refresh="true"
+       data-side-pagination="server"
+       data-sort-name="lastchange"
+       data-sort-order="DESC"
+       data-search="true"
+        >
+    <thead>
+    <tr>
+        <th data-field="lastchange" data-formatter="formatTime" data-sortable="true">Date</th>
+        <th data-field="description" data-sortable="true">Trigger description</th>
+        <th data-field="priority" data-formatter="formatTriggerPriority" data-sortable="true">Priority</th>
+        <th data-field="hosts.0.host">Hostname</th>
+        <th data-field="lastEvent.acknowledged" data-formatter="formatAcknowledge">Acknowledge</th>
+    </tr>
+    </thead>
+</table>
 
 <script>
     require(['main'], function () {

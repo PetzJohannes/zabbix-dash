@@ -51,3 +51,50 @@
 thead th {
     background-color: #F8F8F8;
 }
+
+.color-swatches {
+    margin: 0 -5px;
+    overflow: hidden
+}
+
+.color-swatch {
+    float: left;
+    width: 60px;
+    height: 60px;
+    margin: 5px;
+    border-radius: 3px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+@media (min-width: 768px){
+    .color-swatch{
+        width: 150px;
+        height: 150px;
+    }
+}
+
+#content {
+    width: 100%;
+}
+
+.color-swatches .brand-primary {
+    background-color: #337ab7;
+}
+
+.color-swatches .brand-success {
+    background-color: #5cb85c;
+}
+
+.color-swatches .brand-warning {
+    background-color: #f0ad4e
+}
+
+.color-swatches .brand-danger {
+    background-color: #d9534f
+}
+
+.color-swatches .brand-info {
+    background-color: #5bc0de
+}
