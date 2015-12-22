@@ -40,7 +40,8 @@ define(['jquery', 'zabbix', 'libs/formatter'], function( $, zabbix, formatter ) 
                        '<li>Yellow: API version is not tested</li>' +
                        '<li>Red: No API detected</li>' +
                        '<li>Grey: Not detected yet</li>' +
-                   '</ul></p>'
+                   '</ul></p>' +
+                   '<p><a target="_blank" href="https://github.com/PetzJohannes/zabbix-dash">Visit on GitHub</a></p>'
            });
        },
        apiversion: function () {

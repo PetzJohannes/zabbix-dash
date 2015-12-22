@@ -1,7 +1,6 @@
 define(['jquery', 'zabbix'], function( $, zabbix ) {
     return {
         triggerGet: function (params) {
-            console.log(params);
             order = params.data.order.toUpperCase();
             paramszapi = {
                 limit: 100,

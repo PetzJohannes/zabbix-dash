@@ -25,14 +25,25 @@ To use this dashboard, clone the repository and upload the files to a web server
 - Search trigger by description
 - Sort triggers by date, trigger description, priority (ASC and DESC)
 
+## Hosts
+- Display an overview about all hosts like in Zabbix Frontend
+
 ## Dashboard
 - Count trigger of all prioritys
 
 # Roadmap
-- Acknowlegde trigger events
-- Host overview
+- Acknowlegde (trigger) events
+- Hosts overview
 - Item overview
+- Display discovered networks
+- Filter discovered networks (search not registered Zabbix hosts)
+- Create new host / add interface to host from discovery view
+- User menu to display my data
+- Resolve macros in the trigger event overview
 - Autorefresh on dashboard
 
 # Bugs
 - Trigger date month false return value
+
+# Risk
+Use this dashboard at your own risk! I will test each function, bugs are not excluded.

@@ -1,0 +1,35 @@
+<table id="hosttable"
+      data-show-refresh="true"
+      data-side-pagination="server"
+      data-sort-name="name"
+      data-sort-order="ASC"
+      data-search="true"
+    >
+    <thead>
+      <tr>
+          <th data-field="name" data-sortable="true">Hostnae</th>
+          <th data-field="applications">Applications</th>
+          <th data-field="items">Items</th>
+          <th data-field="trigger">Trigger</th>
+          <th data-field="discoveryrules">Discovery</th>
+          <th data-field="interfaces">Interfaces</th>
+          <th data-field="active">Active</th>
+      </tr>
+    </thead>
+</table>
+
+<script>
+    require(['main'], function () {
+        require(['actions/hosts', 'libs/formatter', 'domready', 'bootstraptable'], function (methods, formatter, domReady) {
+            domReady( function () {
+                var $table = $('#triggertable'),
+                    hostsGet = function (params) {
+                        methods.hostsGet(params);
+                    };
+                $table.bootstrapTable({
+                    ajax: "hostsGet"
+                });
+            });
+        });
+    });
+</script>
