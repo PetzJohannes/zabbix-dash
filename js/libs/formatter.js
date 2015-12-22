@@ -26,7 +26,7 @@ define(function() {
                     returnval = 'Not classified';
                     break;
             }
-            return '<span class="label trigger-label-' + returnval.toLowerCase() + ' label-font-color">' + returnval.replace(/\s/g, '') + '</span>';
+            return '<span class="label trigger-label-' + returnval.toLowerCase().replace(/\s/g, '') + ' label-font-color">' + returnval + '</span>';
         },
         acknowledgeState: function (value) {
             type = "success";
