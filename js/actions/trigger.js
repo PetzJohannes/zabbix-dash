@@ -41,6 +41,11 @@ define(['jquery', 'zabbix'], function( $, zabbix ) {
                 };
 
             zabbix.zabbixAjax("trigger.get", params, success)
+        },
+        eventAcknowledge: function () {
+            $( 'a .eventAcknowledge' ).on('click', function () {
+                // Make Modular open
+            });
         }
     }
 });
