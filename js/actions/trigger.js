@@ -43,7 +43,7 @@ define(['jquery', 'zabbix', 'bootstraptable'], function( $, zabbix ) {
             zabbix.zabbixAjax("trigger.get", params, success)
         },
         eventAcknowledge: function () {
-            $(document).on('click', '#triggertable .eventAcknowledge', function() {
+            $('#content').on('click', '#triggertable .eventAcknowledge', function() {
                 // Make Modular open
                 var modal = $( '#acknowledge-modal'),
                     triggerdata = $( this ).closest('tr'),
@@ -64,8 +64,8 @@ define(['jquery', 'zabbix', 'bootstraptable'], function( $, zabbix ) {
                 modal.modal('show');
 
                 $( '#acknowledge-event' ).on('click', function () {
-                    $( this).prop('disabled', true);
-                    var message = modal.find( '#acknowledge-comment').val(),
+                    var $acknowledgebutton = $( this),
+                        message = modal.find( '#acknowledge-comment').val(),
                         success = function (response, status) {
                             modal.modal('hide');
                             triggerhead.removeClass('panel-danger').addClass('panel-primary');
@@ -73,9 +73,11 @@ define(['jquery', 'zabbix', 'bootstraptable'], function( $, zabbix ) {
                                 acknowledged: 1
                             }, cell);
                             $('#triggertable').bootstrapTable('updateCell', cell);
+                            $acknowledgebutton.prop('disabled', false);
                         },
                         error = function (response, status) {
                             triggerhead.removeClass('panel-primary').addClass('panel-danger');
+                            $acknowledgebutton.prop('disabled', false);
                         };
                     params = {
                         eventids: eventid,

@@ -109,3 +109,20 @@ thead th {
 .color-swatches .brand-info {
     background-color: #5bc0de
 }
+
+.top-buffer {
+    margin-top: 15px;
+}
+
+textarea {
+    resize: none;
+}
+
+.modal .dl-horizontal dd {
+    margin-left: 110px;
+}
+
+.modal .dl-horizontal dt {
+    text-align: left;
+    width: 100px;
+}
