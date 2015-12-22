@@ -65,7 +65,7 @@ define(['jquery', 'zabbix', 'bootstraptable'], function( $, zabbix ) {
 
                 $( '#acknowledge-event' ).on('click', function () {
                     $( this).prop('disabled', true);
-                    var message = modal.find( '#acknowledge-comment').text(),
+                    var message = modal.find( '#acknowledge-comment').val(),
                         success = function (response, status) {
                             modal.modal('hide');
                             triggerhead.removeClass('panel-danger').addClass('panel-primary');
