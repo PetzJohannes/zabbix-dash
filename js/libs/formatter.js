@@ -29,15 +29,14 @@ define(function() {
             return '<span class="label trigger-label-' + returnval.toLowerCase().replace(/\s/g, '') + ' label-font-color">' + returnval + '</span>';
         },
         acknowledgeState: function (value) {
-            type = "success";
-            text = "Acknowledged";
-            // TODO eventid
-            eventid = "eventidtodo";
-            if ( parseInt(value) === 0 ) {
+            var type = "success",
+            text = "Acknowledged",
+            eventid = value.eventid;
+            if ( parseInt(value.acknowledged) === 0 ) {
                 type = "danger";
                 text = "Acknowledge";
             }
-            return '<a href="#' + eventid + '" class="eventAcknowledge"><span class="label label-' + type + '">' + text + '</span></a>';
+            return '<a href="#" class="eventAcknowledge" id="' + eventid + '"><span class="label label-' + type + '">' + text + '</span></a>';
         },
         inputValidate: function(field, value) {
             if ( value === "" ) {

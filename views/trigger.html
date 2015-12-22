@@ -1,3 +1,38 @@
+<div id="acknowledge-modal" class="modal fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Acknowledge event</h4>
+            </div>
+            <div class="modal-body">
+                <div id="acknowledge-trigger-header" class="panel panel-primary">
+                    <div class="panel-heading" id="acknowledge-event-trigger-description">No trigger selected</div>
+                    <div class="panel-body">
+                        <div class="panel panel-default">
+                            <div id="acknowledge-hostname" class="panel-body">
+                                Hostname
+                            </div>
+                        </div>
+                        <div class="input-group">
+                            <span class="input-group-addon" id="basic-addon1">@</span>
+                            <input type="text" class="form-control" placeholder="Reviser" aria-describedby="basic-addon1">
+                        </div>
+                        <div class="form-group">
+                            <label for="acknowledge-comment">Message:</label>
+                            <textarea class="form-control" rows="5" id="acknowledge-comment"></textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button id="acknowledge-event" type="button" class="btn btn-primary">Acknowledge</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <table id="triggertable"
        data-show-refresh="true"
        data-side-pagination="server"
@@ -7,11 +42,11 @@
         >
     <thead>
     <tr>
-        <th data-field="lastchange" data-formatter="formatTime" data-sortable="true">Date</th>
-        <th data-field="description" data-sortable="true">Trigger description</th>
-        <th data-field="priority" data-formatter="formatTriggerPriority" data-sortable="true">Priority</th>
-        <th data-field="hosts.0.host">Hostname</th>
-        <th data-field="lastEvent.acknowledged" data-formatter="formatAcknowledge">Acknowledge</th>
+        <th data-field="lastchange" data-class="date" data-formatter="formatTime" data-sortable="true">Date</th>data-class
+        <th data-field="description" data-class="description" data-sortable="true">Trigger description</th>
+        <th data-field="priority" data-class="priority" data-formatter="formatTriggerPriority" data-sortable="true">Priority</th>
+        <th data-field="hosts.0.host" data-class="hostname">Hostname</th>
+        <th data-field="lastEvent" data-formatter="formatAcknowledge">Acknowledge</th>
     </tr>
     </thead>
 </table>
@@ -20,6 +55,7 @@
     require(['main'], function () {
         require(['actions/trigger', 'libs/formatter', 'domready', 'bootstraptable'], function (methods, formatter, domReady) {
             domReady( function () {
+                methods.eventAcknowledge();
                 formatTime = function (value) {
                     return formatter.getHumanTime(value);
                 };
