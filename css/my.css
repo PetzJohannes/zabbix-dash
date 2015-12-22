@@ -126,3 +126,7 @@ textarea {
     text-align: left;
     width: 100px;
 }
+
+.hide-id-column {
+    display: none;
+}

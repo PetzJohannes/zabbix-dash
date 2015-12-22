@@ -16,7 +16,14 @@
                 <div class="form-group top-buffer">
                     <label for="acknowledge-comment">Message:</label>
                     <textarea class="form-control" rows="5" id="acknowledge-comment"></textarea>
+                    <h6>Minimum characters: 5</h6>
                 </div>
+                <ul class="list-group">
+                    <li href="#" id="expand-events" class="list-group-item list-group-item-warning">
+                        <span id="events-sum" class="badge">none</span>
+                        Events for this host
+                    </li>
+                </ul>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -35,8 +42,8 @@
         >
     <thead>
     <tr>
-        <th data-field="triggerid" data-class="triggerid" data-visible="false">ID</th>
-        <th data-field="lastchange" data-class="date" data-formatter="formatTime" data-sortable="true">Date</th>data-class
+        <th data-field="triggerid" data-class="triggerid hide-id-column">ID</th>
+        <th data-field="lastchange" data-class="date" data-formatter="formatTime" data-sortable="true">Date</th>
         <th data-field="description" data-class="description" data-sortable="true">Trigger description</th>
         <th data-field="priority" data-class="priority" data-formatter="formatTriggerPriority" data-sortable="true">Priority</th>
         <th data-field="hosts.0.host" data-class="hostname">Hostname</th>

@@ -1,4 +1,4 @@
-define(['jquery', 'zabbix', 'bootstraptable'], function( $, zabbix ) {
+define(['jquery', 'zabbix', 'actions/event', 'bootstraptable'], function( $, zabbix, event ) {
     return {
         triggerGet: function (params) {
             order = params.data.order.toUpperCase();
@@ -57,15 +57,18 @@ define(['jquery', 'zabbix', 'bootstraptable'], function( $, zabbix ) {
                     },
                     triggerhead = $( '#acknowledge-trigger-header'),
                     triggerdescription = triggerdata.find( 'td.description' ).text(),
-                    triggerhostname = triggerdata.find( 'td.hostname').text();
+                    triggerhostname = triggerdata.find( 'td.hostname').text(),
+                    triggerid = triggerdata.find( 'td.triggerid').text();
                 // Generate modal data
                 modal.find('#acknowledge-event-trigger-description').text(triggerdescription);
                 modal.find('#acknowledge-hostname').text(triggerhostname);
+                event.sumEventsTrigger(triggerid, modal.find('#events-sum'));
                 modal.modal('show');
 
                 $( '#acknowledge-event' ).on('click', function () {
                     var $acknowledgebutton = $( this),
-                        message = modal.find( '#acknowledge-comment').val(),
+                        message = modal.find( '#acknowledge-comment'),
+                        messagevalue = message.val(),
                         success = function (response, status) {
                             modal.modal('hide');
                             triggerhead.removeClass('panel-danger').addClass('panel-primary');
@@ -81,9 +84,16 @@ define(['jquery', 'zabbix', 'bootstraptable'], function( $, zabbix ) {
                         };
                     params = {
                         eventids: eventid,
-                        message: message
+                        message: messagevalue
                     };
-                    zabbix.zabbixAjax("event.acknowledge", params, success, error);
+                    if ( messagevalue.length <= 4 ) {
+
+                    } else {
+                        zabbix.zabbixAjax("event.acknowledge", params, success, error);
+                    }
+                });
+                modal.on('shown.bs.modal', function () {
+                    $('#acknowledge-comment').focus()
                 });
             });
         }
