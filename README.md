@@ -6,7 +6,7 @@ There are no requirements to run this dashboard. Only a web server like apache. 
 
 ## Tested Zabbix API versions
 - 2.4.6
-but should work with all newer zabbix version
+- Should work with all newer zabbix version
 
 # Install
 To use this dashboard, clone the repository and upload the files to a web server. That's all and should work. Now you can log in your Zabbix by typing the user name, password, and Zabbix url in the login form.
