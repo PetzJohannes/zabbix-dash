@@ -45,54 +45,55 @@ define(['jquery', 'zabbix', 'actions/event', 'bootstraptable'], function( $, zab
         eventAcknowledge: function () {
             $('#content').on('click', '#triggertable .eventAcknowledge', function() {
                 // Make Modular open
-                var modal = $( '#acknowledge-modal'),
-                    triggerdata = $( this ).closest('tr'),
+                var $modal = $( '#acknowledge-modal'),
+                    $triggerdata = $( this ).closest('tr'),
                     eventid = triggerdata.find( 'a.eventAcknowledge').attr('id'),
                     cell = {
-                        index: triggerdata.attr('data-index'),
+                        index: $triggerdata.attr('data-index'),
                         field: "lastEvent",
                         value: {
                             eventid: eventid
                         }
                     },
-                    triggerhead = $( '#acknowledge-trigger-header'),
-                    triggerdescription = triggerdata.find( 'td.description' ).text(),
-                    triggerhostname = triggerdata.find( 'td.hostname').text(),
-                    triggerid = triggerdata.find( 'td.triggerid').text();
+                    $triggerhead = $( '#acknowledge-trigger-header'),
+                    triggerdescription = $triggerdata.find( 'td.description' ).text(),
+                    triggerhostname = $triggerdata.find( 'td.hostname').text(),
+                    triggerid = $triggerdata.find( 'td.triggerid').text();
                 // Generate modal data
-                modal.find('#acknowledge-event-trigger-description').text(triggerdescription);
-                modal.find('#acknowledge-hostname').text(triggerhostname);
-                event.sumEventsTrigger(triggerid, modal.find('#events-sum'));
-                modal.modal('show');
+                $modal.find('#acknowledge-event-trigger-description').text(triggerdescription);
+                $modal.find('#acknowledge-hostname').text(triggerhostname);
+                event.sumEventsTrigger(triggerid, $modal.find('#events-sum'));
+                $modal.modal('show');
 
                 $( '#acknowledge-event' ).on('click', function () {
                     var $acknowledgebutton = $( this),
-                        message = modal.find( '#acknowledge-comment'),
-                        messagevalue = message.val(),
+                        message = $modal.find( '#acknowledge-comment').val(),
                         success = function (response, status) {
-                            modal.modal('hide');
-                            triggerhead.removeClass('panel-danger').addClass('panel-primary');
+                            $modal.modal('hide');
+                            $triggerhead.removeClass('panel-danger').addClass('panel-primary');
                             cell.value = $.extend({
                                 acknowledged: 1
                             }, cell);
+                            // TODO: This is maybe a bug
+                            // Try console.log(cell) to determine if this json is ok
                             $('#triggertable').bootstrapTable('updateCell', cell);
                             $acknowledgebutton.prop('disabled', false);
                         },
                         error = function (response, status) {
-                            triggerhead.removeClass('panel-primary').addClass('panel-danger');
+                            $triggerhead.removeClass('panel-primary').addClass('panel-danger');
                             $acknowledgebutton.prop('disabled', false);
                         };
                     params = {
                         eventids: eventid,
-                        message: messagevalue
+                        message: message
                     };
-                    if ( messagevalue.length <= 4 ) {
+                    if ( message.length <= 4 ) {
 
                     } else {
                         zabbix.zabbixAjax("event.acknowledge", params, success, error);
                     }
                 });
-                modal.on('shown.bs.modal', function () {
+                $modal.on('shown.bs.modal', function () {
                     $('#acknowledge-comment').focus()
                 });
             });

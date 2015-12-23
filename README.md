@@ -48,8 +48,10 @@ To use this dashboard, clone the repository and upload the files to a web server
 - Show count of acknowledge messages in acknowledge modal
 - Show last acknowledge messages in acknowledge modal
 - Display discovery rules and filter by known and unknown hosts
-- New view for item data
+- New view for item data with graphs and history
 - Date picker in menu to select a time from and till
+- New view for events
+- Last 20 triggers as dashboard overview
 
 # Bugs
 - Trigger date month false return value

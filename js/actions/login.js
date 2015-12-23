@@ -2,19 +2,19 @@ define(['jquery', 'zabbix', 'libs/formatter'], function( $, zabbix, formatter ) 
    return {
        loginHandler: function() {
           $( "#zbxlogin").on('click', function() {
-              button = $( this );
-              button.prop('disabled', true);
-              var usernameField = $( "input[name='username']" ),
-                  passwordField = $( "input[name='password']" ),
+              $button = $( this );
+              $button.prop('disabled', true);
+              var $usernameField = $( "input[name='username']" ),
+                  $passwordField = $( "input[name='password']" ),
                   url = $( "input[name='url']").val(),
-                  username = usernameField.val(),
-                  password = passwordField.val(),
-                  usernameok = formatter.inputValidate(usernameField, username),
-                  passwordok = formatter.inputValidate(passwordField, password);
+                  username = $usernameField.val(),
+                  password = $passwordField.val(),
+                  usernameok = formatter.inputValidate($usernameField, username),
+                  passwordok = formatter.inputValidate($passwordField, password);
               if ( usernameok === true && passwordok === true ) {
                  zabbix.zabbixLogin(username, password, url)
               } else {
-                  button.prop('disabled', false);
+                  $button.prop('disabled', false);
               }
           });
        },
@@ -25,8 +25,8 @@ define(['jquery', 'zabbix', 'libs/formatter'], function( $, zabbix, formatter ) 
           }
        },
        help: function () {
-           var popover = $( '#loginhelp');
-           popover.popover({
+           var $popover = $( '#loginhelp');
+           $popover.popover({
                placement: "right",
                trigger: "focus",
                title: "Zabbix Dash help",
@@ -45,23 +45,23 @@ define(['jquery', 'zabbix', 'libs/formatter'], function( $, zabbix, formatter ) 
            });
        },
        apiversion: function () {
-           var urlField = $( "input[name='url']"),
-               urlFieldSpan = $( "#zabbix-version" ),
-               loginButton = $( '#zbxlogin' );
+           var $urlField = $( "input[name='url']"),
+               $urlFieldSpan = $( "#zabbix-version" ),
+               $loginButton = $( '#zbxlogin' );
                success = function ( response, status ) {
-                   urlFieldSpan.removeAttr('class');
+                   $urlFieldSpan.removeAttr('class');
                    if ( response.result === "2.4.6" ) {
-                       urlFieldSpan.addClass("label label-success");
+                       $urlFieldSpan.addClass("label label-success");
                    } else {
-                       urlFieldSpan.addClass("label label-warning");
+                       $urlFieldSpan.addClass("label label-warning");
                    }
-                   loginButton.prop('disabled', false);
-                   urlFieldSpan.text(response.result);
+                   $loginButton.prop('disabled', false);
+                   $urlFieldSpan.text(response.result);
                },
                error = function ( response, status ) {
-                   urlFieldSpan.removeAttr('class').addClass("label label-danger");
-                   urlFieldSpan.text("No valid url");
-                   loginButton.prop('disabled', true);
+                   $urlFieldSpan.removeAttr('class').addClass("label label-danger");
+                   $urlFieldSpan.text("No valid url");
+                   $loginButton.prop('disabled', true);
                },
                getVersion = function () {
                    zabbix.zabbixAjax("apiinfo.version", [], success, error, false);
@@ -69,9 +69,9 @@ define(['jquery', 'zabbix', 'libs/formatter'], function( $, zabbix, formatter ) 
            if ( localStorage.getItem('zbxurl') !== undefined ) {
                getVersion();
            }
-           urlField.on('blur', function () {
-               var url = urlField.val(),
-                   urlok = formatter.inputValidate(urlField, url);
+           $urlField.on('blur', function () {
+               var url = $urlField.val(),
+                   urlok = formatter.inputValidate($urlField, url);
                if ( urlok === true ) {
                    localStorage.setItem('zbxurl', url);
                    getVersion();

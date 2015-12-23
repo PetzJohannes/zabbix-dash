@@ -39,12 +39,7 @@ define(['jquery'], function () {
                 });
                 tableObject.complete();
             };
-            var error = function(response, status) {
-                $( "#failmessage").text(status);
-                $( "#faillogin" ).modal("show");
-                $( '#zbxlogin' ).prop('disabled', false);
-            };
-            this.zabbixAjax(method, params, success, error);
+            this.zabbixAjax(method, params, success);
         },
         zabbixAjax: function (method, params, success, error, global) {
             success = typeof success !== 'undefined' ? success : function (response, status) { console.log(response) };

@@ -38,12 +38,12 @@ define(function() {
             }
             return '<a href="#" class="eventAcknowledge" id="' + eventid + '"><span class="label label-' + type + '">' + text + '</span></a>';
         },
-        inputValidate: function(field, value) {
+        inputValidate: function($field, value) {
             if ( value === "" ) {
-                field.parent().addClass("has-error");
+                $field.parent().addClass("has-error");
                 ok = false;
             } else {
-                field.parent().removeClass("has-error");
+                $field.parent().removeClass("has-error");
                 ok = true;
             }
             return ok;
