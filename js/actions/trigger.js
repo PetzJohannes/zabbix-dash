@@ -47,7 +47,7 @@ define(['jquery', 'zabbix', 'actions/event', 'bootstraptable'], function( $, zab
                 // Make Modular open
                 var $modal = $( '#acknowledge-modal'),
                     $triggerdata = $( this ).closest('tr'),
-                    eventid = triggerdata.find( 'a.eventAcknowledge').attr('id'),
+                    eventid = $triggerdata.find( 'a.eventAcknowledge').attr('id'),
                     cell = {
                         index: $triggerdata.attr('data-index'),
                         field: "lastEvent",

@@ -44,7 +44,7 @@
     <tr>
         <th data-field="triggerid" data-class="triggerid hide-id-column">ID</th>
         <th data-field="lastchange" data-class="date" data-formatter="formatTime" data-sortable="true">Date</th>
-        <th data-field="description" data-class="description" data-sortable="true">Trigger description</th>
+        <th data-field="description" data-class="description" data-formatter="formatDescription" data-sortable="true">Trigger description</th>
         <th data-field="priority" data-class="priority" data-formatter="formatTriggerPriority" data-sortable="true">Priority</th>
         <th data-field="hosts.0.host" data-class="hostname">Hostname</th>
         <th data-field="lastEvent" data-formatter="formatAcknowledge">Acknowledge</th>
@@ -65,6 +65,12 @@
                 };
                 formatAcknowledge = function (value) {
                     return formatter.acknowledgeState(value);
+                };
+                formatDescription = function (value) {
+                    if ( /\{\$.*\}/.test(value) ) {
+                        value = formatter.descriptionMacro(value);
+                    }
+                    return value;
                 };
                 triggerGet = function (params) {
                     methods.triggerGet(params);

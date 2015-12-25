@@ -1,4 +1,4 @@
-define(function() {
+define(['zabbix'], function(zabbix) {
     return {
         getHumanTime: function (value) {
             timeval = new Date(value*1000);
@@ -38,7 +38,7 @@ define(function() {
             }
             return '<a href="#" class="eventAcknowledge" id="' + eventid + '"><span class="label label-' + type + '">' + text + '</span></a>';
         },
-        inputValidate: function($field, value) {
+        inputValidate: function ($field, value) {
             if ( value === "" ) {
                 $field.parent().addClass("has-error");
                 ok = false;
@@ -47,6 +47,10 @@ define(function() {
                 ok = true;
             }
             return ok;
+        },
+        descriptionMacro: function (value) {
+            zabbix.zabbixAjax
+            return "hallo";
         }
     };
 });
