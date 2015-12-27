@@ -28,7 +28,8 @@
                           methods.siteLoader($( "#content" ), "login");
                       } else {
                           methods.siteLoader($( "#menu" ), "navbar");
-                          methods.siteLoader($( "#content" ), "dashboard");
+                          var view = methods.urlGetter("view");
+                          methods.siteLoader($( "#content" ), view);
                       }
                   });
               })

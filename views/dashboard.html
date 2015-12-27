@@ -35,7 +35,7 @@
     require(['main'], function () {
         require(['actions/trigger', 'domready', 'loader'], function (methods, domReady, loader) {
             domReady(function () {
-                setInterval(function refreshDash() {
+                setInterval(function refreshDash () {
                     methods.triggerCount($( "#dashboard-trigger-disaster h2" ), 5);
                     methods.triggerCount($( "#dashboard-trigger-high h2" ), 4);
                     methods.triggerCount($( "#dashboard-trigger-average h2" ), 3);

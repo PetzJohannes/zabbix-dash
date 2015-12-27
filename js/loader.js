@@ -1,6 +1,6 @@
 define(['jquery'], function ( $ ) {
     return {
-        siteLoader: function($appendobject, site) {
+        siteLoader: function ($appendobject, site) {
             $.ajax({
                 dataType: 'html',
                 type: 'GET',
@@ -13,6 +13,15 @@ define(['jquery'], function ( $ ) {
                     $appendobject.html( response );
                 }
             });
+        },
+        urlGetter: function (name) {
+            var results = new RegExp('[\?&]' + name + '=([^&#]*)').exec(window.location.href);
+            if (results==null){
+                return "dashboard";
+            }
+            else{
+                return results[1] || 0;
+            }
         }
     }
 });
