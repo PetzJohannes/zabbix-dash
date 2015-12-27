@@ -62,7 +62,7 @@ define(['jquery', 'zabbix', 'actions/event', 'bootstraptable'], function( $, zab
                 // Generate modal data
                 $modal.find('#acknowledge-event-trigger-description').text(triggerdescription);
                 $modal.find('#acknowledge-hostname').text(triggerhostname);
-                event.sumEventsTrigger(triggerid, $modal.find('#events-sum'));
+                event.sumEventsTrigger(triggerid, $modal.find('#events-sum'), $modal.find('#acknowledge-sum'));
                 $modal.modal('show');
 
                 $( '#acknowledge-event' ).on('click', function () {
@@ -95,6 +95,15 @@ define(['jquery', 'zabbix', 'actions/event', 'bootstraptable'], function( $, zab
                 });
                 $modal.on('shown.bs.modal', function () {
                     $('#acknowledge-comment').focus()
+                });
+                $modal.on('click', '#expand-acknowledge', function () {
+                    var $list = $( '#acknowledge-list' ),
+                        $listItems = $list.find( 'li');
+                    if ( $listItems.not(':first').length === 0 ) {
+                        event.appendMessages(eventid, $list);
+                    } else {
+                        $listItems.not(':first').remove();
+                    }
                 });
             });
         }

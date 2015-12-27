@@ -131,3 +131,7 @@ textarea {
 .hide-id-column {
     display: none;
 }
+
+.no-bottom-buffer {
+    margin-bottom: 0px;
+}
