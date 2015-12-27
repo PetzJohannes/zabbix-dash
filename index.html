@@ -22,7 +22,7 @@
       </div>
       <script>
           require(['main'], function () {
-              require(['loader', 'domready'], function(methods, domReady) {
+              require(['loader', 'domready'], function(methods, domReady, formatter) {
                   domReady(function () {
                       if ( localStorage.getItem('zbxauth') === null ) {
                           methods.siteLoader($( "#content" ), "login");

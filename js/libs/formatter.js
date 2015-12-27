@@ -2,7 +2,7 @@ define(['zabbix'], function(zabbix) {
     return {
         getHumanTime: function (value) {
             timeval = new Date(value*1000);
-            return timeval.getDate() + "." + timeval.getMonth() + "." + timeval.getFullYear() + " " + timeval.getHours() + ":" + timeval.getMinutes() + ":" + timeval.getSeconds() + "Uhr";
+            return timeval.getDate() + "." + (timeval.getMonth()+1) + "." + timeval.getFullYear() + " " + timeval.getHours() + ":" + timeval.getMinutes() + ":" + timeval.getSeconds() + "Uhr";
         },
         priority: function (value) {
             var returnval = 'Not classified';
