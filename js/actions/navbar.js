@@ -10,6 +10,10 @@ define(['jquery', 'zabbix', 'loader'], function( $, zabbix, loader ) {
         },
         userInformation: function () {
             $( '#usermenu').prepend(localStorage.getItem("zbxusername") + ", " + localStorage.getItem("zbxusersurname") + " ");
+        },
+        setActiveMenu: function () {
+            var view = loader.urlGetter("view");
+            $( '#zbxdashmenu').find( '#' + view).addClass("active");
         }
     }
 });

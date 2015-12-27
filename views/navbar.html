@@ -12,8 +12,8 @@
         </div>
         <div class="collapse navbar-collapse" id="zabbix-dash-menu">
             <ul class="nav navbar-nav">
-                <li class="contentSwitch"><a href="?view=trigger">Trigger</a></li>
-                <li class="contentSwitch"><a href="?view=hosts">Hosts</a></li>
+                <li id="trigger"><a href="?view=trigger">Trigger</a></li>
+                <li id="hosts"><a href="?view=hosts">Hosts</a></li>
             </ul>
 
             <!-- Collect the nav links, forms, and other content for toggling -->
@@ -38,6 +38,7 @@
             domReady(function () {
                 methods.logout();
                 methods.userInformation();
+                methods.setActiveMenu();
             });
         });
     });
