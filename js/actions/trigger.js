@@ -45,6 +45,7 @@ define(['jquery', 'zabbix', 'actions/event', 'bootstraptable'], function( $, zab
         eventAcknowledge: function () {
             $('#content').on('click', '#triggertable .eventAcknowledge', function() {
                 // Make Modular open
+                var $tmodalAcknowledgeList = $( '#acknowledge-list' );
                 var $modal = $( '#acknowledge-modal'),
                     $triggerdata = $( this ).closest('tr'),
                     eventid = $triggerdata.find( 'a.eventAcknowledge').attr('id'),
@@ -58,11 +59,15 @@ define(['jquery', 'zabbix', 'actions/event', 'bootstraptable'], function( $, zab
                     $triggerhead = $( '#acknowledge-trigger-header'),
                     triggerdescription = $triggerdata.find( 'td.description' ).text(),
                     triggerhostname = $triggerdata.find( 'td.hostname').text(),
-                    triggerid = $triggerdata.find( 'td.triggerid').text();
+                    triggerid = $triggerdata.find( 'td.triggerid').text(),
+                    $tmodalDescription = $modal.find('#acknowledge-event-trigger-description'),
+                    $tmodalHostname = $modal.find('#acknowledge-hostname'),
+                    $tmodalEventSum = $modal.find('#events-sum'),
+                    $tmodalAcknowledgeSum = $modal.find('#acknowledge-sum');
                 // Generate modal data
-                $modal.find('#acknowledge-event-trigger-description').text(triggerdescription);
-                $modal.find('#acknowledge-hostname').text(triggerhostname);
-                event.sumEventsTrigger(triggerid, $modal.find('#events-sum'), $modal.find('#acknowledge-sum'));
+                $tmodalDescription.text(triggerdescription);
+                $tmodalHostname.text(triggerhostname);
+                event.sumEventsTrigger(triggerid, $tmodalEventSum, $tmodalAcknowledgeSum);
                 $modal.modal('show');
 
                 $( '#acknowledge-event' ).on('click', function () {
@@ -97,13 +102,21 @@ define(['jquery', 'zabbix', 'actions/event', 'bootstraptable'], function( $, zab
                     $('#acknowledge-comment').focus()
                 });
                 $modal.on('click', '#expand-acknowledge', function () {
-                    var $list = $( '#acknowledge-list' ),
-                        $listItems = $list.find( 'li');
+                    var $listItems = $tmodalAcknowledgeList.find( 'li');
                     if ( $listItems.length === 0 ) {
-                        event.appendMessages(eventid, $list);
+                        event.appendMessages(eventid, $tmodalAcknowledgeList);
                     } else {
                         $listItems.remove();
                     }
+                });
+                $modal.on('hide.bs.modal', function () {
+                    console.log("test");
+                    console.log($tmodalAcknowledgeList);
+                    $tmodalDescription.text("No trigger selected");
+                    $tmodalHostname.text("No trigger selected");
+                    $tmodalEventSum.text("None");
+                    $tmodalAcknowledgeSum.text("None");
+                    $tmodalAcknowledgeList.find('li').remove();
                 });
             });
         }
