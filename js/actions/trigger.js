@@ -99,10 +99,10 @@ define(['jquery', 'zabbix', 'actions/event', 'bootstraptable'], function( $, zab
                 $modal.on('click', '#expand-acknowledge', function () {
                     var $list = $( '#acknowledge-list' ),
                         $listItems = $list.find( 'li');
-                    if ( $listItems.not(':first').length === 0 ) {
+                    if ( $listItems.length === 0 ) {
                         event.appendMessages(eventid, $list);
                     } else {
-                        $listItems.not(':first').remove();
+                        $listItems.remove();
                     }
                 });
             });
