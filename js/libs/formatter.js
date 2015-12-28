@@ -49,8 +49,9 @@ define(['zabbix'], function(zabbix) {
             return ok;
         },
         descriptionMacro: function (value) {
-            zabbix.zabbixAjax
-            return "hallo";
+            //TODO: Here is an macro included. I need to fix this.
+            //zabbix.zabbixAjax
+            return value;
         }
     };
 });

@@ -18,7 +18,7 @@ define(['jquery', 'zabbix', 'libs/formatter'], function( $, zabbix, formatter ) 
                 select_acknowledges: 'extend',
                 object: 0
                 },
-                acknowledges = "";
+                acknowledges = "",
                 success = function (response, status) {
                     $.each(response.result[0].acknowledges, function (index, value) {
                         acknowledges += '<li class="list-group-item"><dl class="dl-horizontal">'
