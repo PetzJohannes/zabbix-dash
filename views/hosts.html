@@ -13,7 +13,7 @@
           <th data-field="triggers" data-formatter="formatTriggers">Triggers</th>
           <th data-field="discoveries" data-formatter="formatDiscovery">Discovery</th>
           <th data-field="httpTests" data-formatter="formatWeb">Web</th>
-          <th data-field="interfaces.length" data-formatter="formatInterfaces">Interfaces</th>
+          <th data-field="interfaces" data-formatter="formatInterfaces">Interfaces</th>
           <th data-field="status" data-formatter="formatStatus" data-sortable="true">Status</th>
       </tr>
     </thead>
@@ -46,7 +46,7 @@
                     return formatter.formatNumWithText(value, "Web");
                 };
                 formatInterfaces = function (value) {
-                    return formatter.formatNumWithText(value, "Interfaces");
+                    return formatter.formatInterfaceData(value);
                 };
                 $table.bootstrapTable({
                     ajax: "hostsGet"

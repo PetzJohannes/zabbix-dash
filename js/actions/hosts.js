@@ -11,7 +11,10 @@ define(['jquery', 'zabbix'], function( $, zabbix ) {
             	selectInterfaces: 'extend',
             	sortfield: params.data.sort,
             	sortorder: order,
-            	limit: 1000
+            	limit: 1000,
+                search: {
+                    name: params.data.search
+                }
             };
             zabbix.tableLoad(params, "host.get", paramszapi);
         }

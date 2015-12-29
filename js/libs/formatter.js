@@ -67,7 +67,53 @@ define(['zabbix'], function(zabbix) {
             return '<a href="#">' + text + ' <span class="badge">' + value + '</span></a>';
         },
         formatInterfaceData: function (value) {
-            return null;
+            var interfaces = {
+                    agent: {
+                        interface: null,
+                        name: "Z",
+                        lable: "default"
+                        },
+                    snmp: {
+                        interface: null,
+                        name: "S",
+                        lable: "default"
+                        },
+                    jmx: {
+                        interface: null,
+                        name: "J",
+                        lable: "default"
+                        },
+                    ipmi: {
+                        interface: null,
+                        name: "I",
+                        lable: "default"
+                        },
+                },
+                interfaceReturn = "";
+            for (var i = 0; i < value.length; i++) {
+                var type = parseInt(value[i]['type']);
+                if ( type === 1 && interfaces['agent']['interface'] === null ) {
+                    interfaces['agent']['interface'] = value[i];
+                    interfaces['agent']['lable'] = "success";
+                } else if ( type === 2 && interfaces['snmp']['interface'] === null ) {
+                    interfaces['snmp']['interface'] = value[i];
+                    interfaces['snmp']['lable'] = "success";
+                } else if ( type === 3 && interfaces['jmx']['interface'] === null ) {
+                    interfaces['jmx']['interface'] = value[i];
+                    interfaces['jmx']['lable'] = "success";
+                } else if ( type === 4 && interfaces['ipmi']['interface'] === null) {
+                    interfaces['ipmi']['interface'] = value[i];
+                    interfaces['ipmi']['lable'] = "success";
+                } else {
+                    // TODO
+                    //console.log("second interfce not yet supported");
+                };
+            };
+
+            for (var i in interfaces) {
+                interfaceReturn += ' <span class="label label-' + interfaces[i]['lable'] + '">' + interfaces[i]['name'] + '</span>';
+            }
+            return interfaceReturn;
         }
     };
 });
