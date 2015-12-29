@@ -52,6 +52,22 @@ define(['zabbix'], function(zabbix) {
             //TODO: Here is an macro included. I need to fix this.
             //zabbix.zabbixAjax
             return value;
+        },
+        formatStatus: function (value) {
+            value = parseInt(value);
+            var status = "success",
+                label = "Enabled";
+            if ( value === 1 ) {
+                status = "danger";
+                label = "Disabled";
+            }
+            return '<span class="label label-' + status + '">' + label + '</span>';
+        },
+        formatNumWithText: function (value, text) {
+            return '<a href="#">' + text + ' <span class="badge">' + value + '</span></a>';
+        },
+        formatInterfaceData: function (value) {
+            return null;
         }
     };
 });

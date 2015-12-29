@@ -34,6 +34,7 @@ define(['jquery'], function () {
         },
         tableLoad: function (tableObject, method, params) {
             var success = function(response, status) {
+                console.log(response);
                 tableObject.success({
                     rows: response.result
                 });
@@ -49,6 +50,7 @@ define(['jquery'], function () {
             var rpcid = 0;
             // Require Zabbix API Parameter
             params = $.extend({
+                editable: true,
                 extendoutput: true
             }, params);
 

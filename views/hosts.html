@@ -7,13 +7,14 @@
     >
     <thead>
       <tr>
-          <th data-field="name" data-sortable="true">Hostnae</th>
-          <th data-field="applications">Applications</th>
-          <th data-field="items">Items</th>
-          <th data-field="trigger">Trigger</th>
-          <th data-field="discoveryrules">Discovery</th>
-          <th data-field="interfaces">Interfaces</th>
-          <th data-field="active">Active</th>
+          <th data-field="name" data-sortable="true">Hostname</th>
+          <th data-field="applications" data-formatter="formatApplications">Applications</th>
+          <th data-field="items" data-formatter="formatItems">Items</th>
+          <th data-field="triggers" data-formatter="formatTriggers">Triggers</th>
+          <th data-field="discoveries" data-formatter="formatDiscovery">Discovery</th>
+          <th data-field="httpTests" data-formatter="formatWeb">Web</th>
+          <th data-field="interfaces.length" data-formatter="formatInterfaces">Interfaces</th>
+          <th data-field="status" data-formatter="formatStatus" data-sortable="true">Status</th>
       </tr>
     </thead>
 </table>
@@ -22,14 +23,35 @@
     require(['main'], function () {
         require(['actions/hosts', 'libs/formatter', 'domready', 'bootstraptable'], function (methods, formatter, domReady) {
             domReady( function () {
-                var $table = $('#triggertable'),
-                    hostsGet = function (params) {
-                        methods.hostsGet(params);
-                    };
+                var $table = $('#hosttable');
+                hostsGet = function (params) {
+                    methods.hostsGet(params);
+                };
+                formatStatus = function (value) {
+                    return formatter.formatStatus(value);
+                };
+                formatApplications = function (value) {
+                    return formatter.formatNumWithText(value, "Applications");
+                };
+                formatItems = function (value) {
+                    return formatter.formatNumWithText(value, "Items");
+                };
+                formatTriggers = function (value) {
+                    return formatter.formatNumWithText(value, "Triggers");
+                };
+                formatDiscovery = function (value) {
+                    return formatter.formatNumWithText(value, "Discovery");
+                };
+                formatWeb = function (value) {
+                    return formatter.formatNumWithText(value, "Web");
+                };
+                formatInterfaces = function (value) {
+                    return formatter.formatNumWithText(value, "Interfaces");
+                };
                 $table.bootstrapTable({
                     ajax: "hostsGet"
                 });
-            });
+           });
         });
     });
 </script>
