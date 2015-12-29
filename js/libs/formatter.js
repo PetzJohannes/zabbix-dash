@@ -91,17 +91,18 @@ define(['zabbix'], function(zabbix) {
                 },
                 interfaceReturn = "";
             for (var i = 0; i < value.length; i++) {
-                var type = parseInt(value[i]['type']);
-                if ( type === 1 && interfaces['agent']['interface'] === null ) {
+                var type = parseInt(value[i]['type']),
+                    defaultInt = parseInt(value[i].main);
+                if ( type === 1 && defaultInt === 1 ) {
                     interfaces['agent']['interface'] = value[i];
                     interfaces['agent']['lable'] = "success";
-                } else if ( type === 2 && interfaces['snmp']['interface'] === null ) {
+                } else if ( type === 2 && defaultInt === 1 ) {
                     interfaces['snmp']['interface'] = value[i];
                     interfaces['snmp']['lable'] = "success";
-                } else if ( type === 3 && interfaces['ipmi']['interface'] === null) {
+                } else if ( type === 3 && defaultInt === 1) {
                     interfaces['ipmi']['interface'] = value[i];
                     interfaces['ipmi']['lable'] = "success";
-                } else if ( type === 4 && interfaces['jmx']['interface'] === null ) {
+                } else if ( type === 4 && defaultInt === 1 ) {
                     interfaces['jmx']['interface'] = value[i];
                     interfaces['jmx']['lable'] = "success";
                 } else {
