@@ -87,7 +87,7 @@ define(['zabbix'], function(zabbix) {
                         interface: null,
                         name: "I",
                         lable: "default"
-                        },
+                        }
                 },
                 interfaceReturn = "";
             for (var i = 0; i < value.length; i++) {
@@ -98,12 +98,12 @@ define(['zabbix'], function(zabbix) {
                 } else if ( type === 2 && interfaces['snmp']['interface'] === null ) {
                     interfaces['snmp']['interface'] = value[i];
                     interfaces['snmp']['lable'] = "success";
-                } else if ( type === 3 && interfaces['jmx']['interface'] === null ) {
-                    interfaces['jmx']['interface'] = value[i];
-                    interfaces['jmx']['lable'] = "success";
-                } else if ( type === 4 && interfaces['ipmi']['interface'] === null) {
+                } else if ( type === 3 && interfaces['ipmi']['interface'] === null) {
                     interfaces['ipmi']['interface'] = value[i];
                     interfaces['ipmi']['lable'] = "success";
+                } else if ( type === 4 && interfaces['jmx']['interface'] === null ) {
+                    interfaces['jmx']['interface'] = value[i];
+                    interfaces['jmx']['lable'] = "success";
                 } else {
                     // TODO
                     //console.log("second interfce not yet supported");
