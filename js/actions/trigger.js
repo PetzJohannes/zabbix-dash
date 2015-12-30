@@ -13,6 +13,9 @@ define(['jquery', 'zabbix', 'actions/event', 'bootstraptable'], function( $, zab
                 sortfield: params.data.sort,
                 search: {
                     description: params.data.search
+                },
+                filter: {
+                    value: 1
                 }
             };
             zabbix.tableLoad(params, "trigger.get", paramszapi);
@@ -25,7 +28,8 @@ define(['jquery', 'zabbix', 'actions/event', 'bootstraptable'], function( $, zab
                     only_true: true,
                     active: true,
                     filter: {
-                        priority: severity
+                        priority: severity,
+                        value: 1
                     },
                     countOutput: true
                 },
