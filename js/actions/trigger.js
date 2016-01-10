@@ -115,8 +115,8 @@ define(['jquery', 'zabbix', 'actions/event', 'bootstraptable'], function( $, zab
                 if ( $listItems.length === 0 ) {
                     event.appendMessages($tmodalAcknowledgeSum.attr('id'), $tmodalAcknowledgeList);
                 } else {
-                    //$listItems.remove();
-                    $tmodalAcknowledgeList.children( 'li' ).remove();
+                    $listItems.remove();
+                    //$tmodalAcknowledgeList.children( 'li' ).remove();
                 }
             });
             $modal.on('hidden.bs.moda', function () {
@@ -126,7 +126,7 @@ define(['jquery', 'zabbix', 'actions/event', 'bootstraptable'], function( $, zab
                 $tmodalHostname.text("No trigger selected");
                 $tmodalEventSum.text("None");
                 $tmodalAcknowledgeSum.text("None");
-                $tmodalAcknowledgeList.children( 'li' ).remove();
+                $tmodalAcknowledgeList.find( 'li' ).remove();
                 $tmodalTextareaDiv.removeClass( 'has-error' );
                 $tmodalAcknowledgeSum.attr('id', null);
                 $modal.attr('id', null);

@@ -7,8 +7,11 @@ define(['jquery', 'zabbix', 'libs/formatter'], function( $, zabbix, formatter ) 
                     object: 0
                 },
                 success = function (response, status) {
-                    $eventObject.text(response.result.length);
-                    $acknowledgeObject.text(response.result[0].acknowledges.length);
+                    var events = response.result.length;
+                    $eventObject.text(events);
+                    if ( events > 0 ) {
+                        $acknowledgeObject.text(response.result[0].acknowledges.length);
+                    };
                 };
             zabbix.zabbixAjax("event.get", params, success);
         },

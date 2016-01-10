@@ -1,7 +1,7 @@
 define(['jquery'], function () {
     return {
         zabbixLogin: function (username, password, url) {
-            params = {};
+            var params = {};
             params = $.extend({
                 extendoutput: true,
                 limit: 10,
