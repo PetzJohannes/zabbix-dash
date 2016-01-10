@@ -45,14 +45,15 @@
        data-sort-name="lastchange"
        data-sort-order="DESC"
        data-search="true"
+       data-checkbox-header="false"
         >
     <thead>
     <tr>
-        <th data-field="triggerid" data-class="triggerid hide-id-column">ID</th>
+        <th data-checkbox="true" data-click-to-select="true"></th>
         <th data-field="lastchange" data-class="date" data-formatter="formatTime" data-sortable="true">Date</th>
         <th data-field="description" data-class="description" data-formatter="formatDescription" data-sortable="true">Trigger description</th>
         <th data-field="priority" data-class="priority" data-formatter="formatTriggerPriority" data-sortable="true">Priority</th>
-        <th data-field="hosts.0.host" data-class="hostname">Hostname</th>
+        <th data-field="hosts.0" data-formatter="formatHost">Hostname</th>
         <th data-field="lastEvent" data-formatter="formatAcknowledge">Acknowledge</th>
     </tr>
     </thead>
@@ -72,16 +73,19 @@
                 formatAcknowledge = function (value) {
                     return formatter.acknowledgeState(value);
                 };
-                formatDescription = function (value) {
+                formatDescription = function (value, row, index) {
                     if ( /\{\$.*\}/.test(value) ) {
-                        value = formatter.descriptionMacro(value);
-                    }
+                        formatter.descriptionMacro(value, row, index);
+                    };
                     return value;
+                };
+                formatHost = function (value) {
+                    return formatter.hostElement(value);
                 };
                 triggerGet = function (params) {
                     methods.triggerGet(params);
                 };
-                var $table = $('#triggertable');
+                $table = $('#triggertable');
                 $table.bootstrapTable({
                     ajax: "triggerGet"
                 });
