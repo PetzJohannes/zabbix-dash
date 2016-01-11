@@ -113,7 +113,7 @@ define(['jquery', 'zabbix', 'actions/event', 'bootstraptable'], function( $, zab
             $tmodalExpandAcknowledge.on('click', function () {
                 var $listItems = $tmodalAcknowledgeList.find( 'li' );
                 if ( $listItems.length === 0 ) {
-                    event.appendMessages($tmodalAcknowledgeSum.attr('id'), $tmodalAcknowledgeList);
+                    event.appendAcknowledgeMessages($tmodalAcknowledgeSum.attr('id'), $tmodalAcknowledgeList);
                 } else {
                     $listItems.remove();
                 }

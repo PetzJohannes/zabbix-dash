@@ -15,11 +15,11 @@ define(['jquery', 'zabbix', 'libs/formatter'], function( $, zabbix, formatter ) 
                 };
             zabbix.zabbixAjax("event.get", params, success);
         },
-        appendMessages: function(eventid, $object) {
+        appendAcknowledgeMessages: function(eventid, $object) {
             var params = {
-                eventids: eventid,
-                select_acknowledges: 'extend',
-                object: 0
+                    eventids: eventid,
+                    select_acknowledges: 'extend',
+                    object: 0
                 },
                 acknowledges = "",
                 success = function (response, status) {
@@ -29,11 +29,6 @@ define(['jquery', 'zabbix', 'libs/formatter'], function( $, zabbix, formatter ) 
                             + '<dt>Date</dt><dd>' + formatter.getHumanTime(value.clock) + '</dd>'
                             + '<dt>Message</dt><dd>' + value.message + '</dd>'
                             + '</dl></li>';
-                        //acknowledges += '<li class="list-group-item">'
-                        //    + '<p class="no-bottom-buffer">' + value.name + ', ' + value.surname + ' (' + formatter.getHumanTime(value.clock) + '):</p>'
-                        //    + '<dl><dt>Message</dt><dd>' + value.message + '</dd></dl>'
-                        //    + '</li>';
-
                     });
                     $object.append(acknowledges);
                 };
