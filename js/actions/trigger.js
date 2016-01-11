@@ -116,12 +116,9 @@ define(['jquery', 'zabbix', 'actions/event', 'bootstraptable'], function( $, zab
                     event.appendMessages($tmodalAcknowledgeSum.attr('id'), $tmodalAcknowledgeList);
                 } else {
                     $listItems.remove();
-                    //$tmodalAcknowledgeList.children( 'li' ).remove();
                 }
             });
-            $modal.on('hidden.bs.moda', function () {
-                //console.log("test");
-                //console.log($tmodalAcknowledgeList);
+            $modal.on('hidden.bs.modal', function () {
                 $tmodalDescription.text("No trigger selected");
                 $tmodalHostname.text("No trigger selected");
                 $tmodalEventSum.text("None");
