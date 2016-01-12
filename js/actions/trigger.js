@@ -1,15 +1,15 @@
 define(['jquery', 'zabbix', 'actions/event', 'bootstraptable'], function( $, zabbix, event ) {
     return {
-        triggerGet: function (params) {
+        triggerGet: function (params, acknowledgedState) {
             var order = params.data.order.toUpperCase(),
                 paramszapi = {
                     limit: 100,
                     selectHosts: "extend",
-                    // withLastEventUnacknowledged: true,
                     selectLastEvent: true,
                     only_true: true,
                     sortorder: order,
                     active: true,
+                    skipDependent: true,
                     sortfield: params.data.sort,
                     search: {
                         description: params.data.search
@@ -18,7 +18,12 @@ define(['jquery', 'zabbix', 'actions/event', 'bootstraptable'], function( $, zab
                         value: 1
                     }
                 };
-                zabbix.tableLoad(params, "trigger.get", paramszapi);
+            if ( acknowledgedState ) {
+                paramszapi = $.extend({
+                    withLastEventUnacknowledged: true,
+                }, paramszapi);
+            };
+            zabbix.tableLoad(params, "trigger.get", paramszapi);
         },
         triggerCount: function ( object, severity) {
             var params = {

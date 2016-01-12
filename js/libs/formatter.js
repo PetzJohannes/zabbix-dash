@@ -69,7 +69,7 @@ define(['zabbix'], function(zabbix) {
                             field: "description",
                             value: description
                         };
-                    $table.bootstrapTable('updateCell', update);
+                    $triggertable.bootstrapTable('updateCell', update);
                 };
             zabbix.zabbixAjax("usermacro.get", params, success);
         },

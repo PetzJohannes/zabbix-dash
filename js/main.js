@@ -4,7 +4,8 @@ require.config({
         'bootstrap': ['jquery'],
         'bootstrapdialog': ['bootstrap'],
         'bootstraptable': ['bootstrap'],
-        'bootstraptablefiltercontrol': ['bootstraptable']
+        'bootstraptablefiltercontrol': ['bootstraptable'],
+        'bootstrapswitch': ['bootstrap']
     },
     paths: {
         jquery: 'libs/jquery.min',
@@ -12,6 +13,7 @@ require.config({
         bootstrapdialog: 'libs/bootstrap-dialog.min',
         bootstraptable: 'libs/bootstrap-table.min',
         bootstraptablefiltercontrol: 'libs/bootstrap-table-filter-control',
+        bootstrapswitch: 'libs/bootstrap-switch.min',
         domready: 'libs/domReady'
     }
 });

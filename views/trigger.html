@@ -38,9 +38,17 @@
         </div>
     </div>
 </div>
-
+<div id="triggertoolbar">
+    <input type="checkbox" name="showAcknowledge" checked
+            data-size="mini"
+            data-label-text="State"
+            data-on-text="New"
+            data-off-text="All"
+            >
+</div>
 <table id="triggertable"
        data-show-refresh="true"
+       data-toolbar="#triggertoolbar"
        data-side-pagination="server"
        data-sort-name="lastchange"
        data-sort-order="DESC"
@@ -61,8 +69,10 @@
 
 <script>
     require(['main'], function () {
-        require(['actions/trigger', 'libs/formatter', 'domready', 'bootstraptable'], function (methods, formatter, domReady) {
+        require(['actions/trigger', 'libs/formatter', 'domready', 'bootstraptable', 'bootstrapswitch'], function (methods, formatter, domReady) {
             domReady( function () {
+                var $acknowledgeSwitch = $("[name='showAcknowledge']");
+                $acknowledgeSwitch.bootstrapSwitch();
                 methods.eventAcknowledge();
                 formatTime = function (value) {
                     return formatter.getHumanTime(value);
@@ -83,11 +93,14 @@
                     return formatter.hostElement(value);
                 };
                 triggerGet = function (params) {
-                    methods.triggerGet(params);
+                    methods.triggerGet(params, $acknowledgeSwitch.bootstrapSwitch('state'));
                 };
-                $table = $('#triggertable');
-                $table.bootstrapTable({
+                $triggertable = $('#triggertable');
+                $triggertable.bootstrapTable({
                     ajax: "triggerGet"
+                });
+                $acknowledgeSwitch.on('switchChange.bootstrapSwitch', function(event, state) {
+                    $triggertable.bootstrapTable('refresh');
                 });
             });
         });
