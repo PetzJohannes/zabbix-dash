@@ -1,6 +1,20 @@
 define(['jquery', 'zabbix', 'actions/event', 'bootstraptable'], function( $, zabbix, event ) {
     return {
         triggerGet: function (params, acknowledgedState) {
+            var searchHost = undefined,
+                searchDescription = undefined,
+                hostRegex = /([H|h]ost:)[^,]+/,
+                descriptionRegex = /([D|d]escription:)[^,]+/;
+            if ( /([Hh]ost:)/.test(params.data.search) ) {
+                searchHost = (hostRegex.exec(params.data.search)[0]).replace(/([Hh]ost:)/, "");
+                console.log(searchHost);
+            }
+            if ( /([D|d]escription:)/.test(params.data.search) ) {
+                searchDescription = (descriptionRegex.exec(params.data.search)[0]).replace(/[D|d]escription:/, "");
+                console.log(searchDescription);
+            } else {
+                searchDescription = params.data.search;
+            }
             var order = params.data.order.toUpperCase(),
                 paramszapi = {
                     limit: 100,
@@ -12,7 +26,8 @@ define(['jquery', 'zabbix', 'actions/event', 'bootstraptable'], function( $, zab
                     skipDependent: true,
                     sortfield: params.data.sort,
                     search: {
-                        description: params.data.search
+                        description: searchDescription,
+                        host: searchHost
                     },
                     filter: {
                         value: 1
