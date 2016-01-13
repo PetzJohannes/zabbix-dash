@@ -59,7 +59,7 @@
         <th data-field="lastchange" data-class="date" data-formatter="formatTime" data-sortable="true">Date</th>
         <th data-field="description" data-class="description" data-sortable="true">Trigger description</th>
         <th data-field="priority" data-class="priority" data-formatter="formatTriggerPriority" data-sortable="true">Priority</th>
-        <th data-field="hosts.0" data-formatter="formatHost">Hostname</th>
+        <th data-field="hosts.0" data-class="host" data-formatter="formatHost">Hostname</th>
         <th data-field="lastEvent" data-formatter="formatAcknowledge">Acknowledge</th>
     </tr>
     </thead>
@@ -94,6 +94,7 @@
                 $acknowledgeSwitch.on('switchChange.bootstrapSwitch', function(event, state) {
                     $triggertable.bootstrapTable('refresh');
                 });
+                methods.hostFilter();
             });
         });
     });

@@ -50,6 +50,11 @@ define(['jquery', 'zabbix', 'actions/event', 'bootstraptable'], function( $, zab
             };
             zabbix.tableLoad(params, "trigger.get", paramszapi);
         },
+        hostFilter: function () {
+            $triggertable.on('click', 'td.host a', function() {
+                $triggertable.bootstrapTable('resetSearch', "Host:" + $( this).text());
+            });
+        },
         triggerCount: function ( object, severity) {
             var params = {
                     output: "triggerids",
