@@ -39,6 +39,7 @@
     </div>
 </div>
 <div id="triggertoolbar">
+    <button id="resetSearch" class="btn btn-default btn-xs">reset search</button>
     <input type="checkbox" name="showAcknowledge" checked
             data-size="mini"
             data-label-text="State"
@@ -93,6 +94,9 @@
                 });
                 $acknowledgeSwitch.on('switchChange.bootstrapSwitch', function(event, state) {
                     $triggertable.bootstrapTable('refresh');
+                });
+                $( '#resetSearch').on('click', function() {
+                    $triggertable.bootstrapTable('resetSearch');
                 });
                 methods.hostFilter();
             });
