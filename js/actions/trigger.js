@@ -13,14 +13,12 @@ define(['jquery', 'zabbix', 'actions/event', 'bootstraptable'], function( $, zab
                     if ( hostValue !== null ) {
                         searchHost = (hostValue[0]).replace(/([Hh]ost:)/, "");
                     }
-                    console.log(searchHost);
                 }
                 if ( testDescription ) {
                     var descriptionValue = descriptionRegex.exec(params.data.search);
                     if ( descriptionValue !== null ) {
                         searchDescription = (descriptionValue[0]).replace(/[D|d]escription:/, "");
                     }
-                    console.log(searchDescription);
                 }
             } else {
                 searchDescription = params.data.search;
