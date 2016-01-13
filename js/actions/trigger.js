@@ -4,20 +4,31 @@ define(['jquery', 'zabbix', 'actions/event', 'bootstraptable'], function( $, zab
             var searchHost = undefined,
                 searchDescription = undefined,
                 hostRegex = /([H|h]ost:)[^,]+/,
-                descriptionRegex = /([D|d]escription:)[^,]+/;
-            if ( /([Hh]ost:)/.test(params.data.search) ) {
-                searchHost = (hostRegex.exec(params.data.search)[0]).replace(/([Hh]ost:)/, "");
-                console.log(searchHost);
-            }
-            if ( /([D|d]escription:)/.test(params.data.search) ) {
-                searchDescription = (descriptionRegex.exec(params.data.search)[0]).replace(/[D|d]escription:/, "");
-                console.log(searchDescription);
+                descriptionRegex = /([D|d]escription:)[^,]+/,
+                testHost = /([Hh]ost:)/.test(params.data.search),
+                testDescription = /([Dd]escription)/.test(params.data.search);
+            if ( testHost || testDescription ) {
+                if ( testHost ) {
+                    var hostValue = hostRegex.exec(params.data.search);
+                    if ( hostValue !== null ) {
+                        searchHost = (hostValue[0]).replace(/([Hh]ost:)/, "");
+                    }
+                    console.log(searchHost);
+                }
+                if ( testDescription ) {
+                    var descriptionValue = descriptionRegex.exec(params.data.search);
+                    if ( descriptionValue !== null ) {
+                        searchDescription = (descriptionValue[0]).replace(/[D|d]escription:/, "");
+                    }
+                    console.log(searchDescription);
+                }
             } else {
                 searchDescription = params.data.search;
             }
             var order = params.data.order.toUpperCase(),
                 paramszapi = {
                     limit: 100,
+                    host: searchHost,
                     selectHosts: "extend",
                     selectLastEvent: true,
                     only_true: true,
@@ -25,9 +36,10 @@ define(['jquery', 'zabbix', 'actions/event', 'bootstraptable'], function( $, zab
                     active: true,
                     skipDependent: true,
                     sortfield: params.data.sort,
+                    expandExpression: true,
+                    expandDescription: true,
                     search: {
-                        description: searchDescription,
-                        host: searchHost
+                        description: searchDescription
                     },
                     filter: {
                         value: 1

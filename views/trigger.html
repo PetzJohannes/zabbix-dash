@@ -57,7 +57,7 @@
     <thead>
     <tr>
         <th data-field="lastchange" data-class="date" data-formatter="formatTime" data-sortable="true">Date</th>
-        <th data-field="description" data-class="description" data-formatter="formatDescription" data-sortable="true">Trigger description</th>
+        <th data-field="description" data-class="description" data-sortable="true">Trigger description</th>
         <th data-field="priority" data-class="priority" data-formatter="formatTriggerPriority" data-sortable="true">Priority</th>
         <th data-field="hosts.0" data-formatter="formatHost">Hostname</th>
         <th data-field="lastEvent" data-formatter="formatAcknowledge">Acknowledge</th>
@@ -80,12 +80,6 @@
                 };
                 formatAcknowledge = function (value) {
                     return formatter.acknowledgeState(value);
-                };
-                formatDescription = function (value, row, index) {
-                    if ( /\{\$.*\}/.test(value) ) {
-                        formatter.descriptionMacro(value, row, index);
-                    };
-                    return value;
                 };
                 formatHost = function (value) {
                     return formatter.hostElement(value);

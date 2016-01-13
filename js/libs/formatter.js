@@ -51,28 +51,6 @@ define(['zabbix'], function(zabbix) {
         hostElement: function (value) {
             return '<a href="#" id="' + value.hostid + '">' + value.host + '</a>';
         },
-        descriptionMacro: function (value, row, index) {
-            var hostid = row.hosts[0].hostid,
-                macroregex = /\{\$.*\}/,
-                macroname = value.match(macroregex),
-                params = {
-                    output: "extend",
-                    hostids: hostid,
-                    filter: {
-                        macro: macroname
-                    }
-                },
-                success = function (response, status) {
-                    var description = value.replace(macroregex, response.result[0].value),
-                        update = {
-                            index: index,
-                            field: "description",
-                            value: description
-                        };
-                    $triggertable.bootstrapTable('updateCell', update);
-                };
-            zabbix.zabbixAjax("usermacro.get", params, success);
-        },
         formatStatus: function (value) {
             value = parseInt(value);
             var status = "success",
