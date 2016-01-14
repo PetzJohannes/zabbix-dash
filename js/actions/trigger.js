@@ -1,32 +1,11 @@
-define(['jquery', 'zabbix', 'actions/event', 'bootstraptable'], function( $, zabbix, event ) {
+define(['jquery', 'zabbix', 'actions/event', 'searcher', 'bootstraptable'], function( $, zabbix, event, searcher ) {
     return {
         triggerGet: function (params, acknowledgedState) {
-            var searchHost = undefined,
-                searchDescription = undefined,
-                hostRegex = /([H|h]ost:)[^,]+/,
-                descriptionRegex = /([D|d]escription:)[^,]+/,
-                testHost = /([Hh]ost:)/.test(params.data.search),
-                testDescription = /([Dd]escription)/.test(params.data.search);
-            if ( testHost || testDescription ) {
-                if ( testHost ) {
-                    var hostValue = hostRegex.exec(params.data.search);
-                    if ( hostValue !== null ) {
-                        searchHost = (hostValue[0]).replace(/([Hh]ost:)/, "");
-                    }
-                }
-                if ( testDescription ) {
-                    var descriptionValue = descriptionRegex.exec(params.data.search);
-                    if ( descriptionValue !== null ) {
-                        searchDescription = (descriptionValue[0]).replace(/[D|d]escription:/, "");
-                    }
-                }
-            } else {
-                searchDescription = params.data.search;
-            }
-            var order = params.data.order.toUpperCase(),
+            var searchData = searcher.searcher(params.data.search),
+                order = params.data.order.toUpperCase(),
                 paramszapi = {
                     limit: 100,
-                    host: searchHost,
+                    host: searchData.host,
                     selectHosts: "extend",
                     selectLastEvent: true,
                     only_true: true,
@@ -37,7 +16,7 @@ define(['jquery', 'zabbix', 'actions/event', 'bootstraptable'], function( $, zab
                     expandExpression: true,
                     expandDescription: true,
                     search: {
-                        description: searchDescription
+                        description: searchData.description
                     },
                     filter: {
                         value: 1

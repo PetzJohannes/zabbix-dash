@@ -14,7 +14,8 @@ require.config({
         bootstraptable: 'libs/bootstrap-table.min',
         bootstraptablefiltercontrol: 'libs/bootstrap-table-filter-control',
         bootstrapswitch: 'libs/bootstrap-switch.min',
-        domready: 'libs/domReady'
+        domready: 'libs/domReady',
+        searcher: 'libs/searcher'
     }
 });
 
