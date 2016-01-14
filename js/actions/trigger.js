@@ -2,11 +2,12 @@ define(['jquery', 'zabbix', 'actions/event', 'searcher', 'bootstraptable', 'boot
     $acknowledgeSwitch = undefined;
     return {
         triggerGet: function (params, acknowledgedState) {
-            var searchData = searcher.searcher(params.data.search),
+            var searchHost = searcher.host(params.data.search),
+                searchDescription = searcher.description(params.data.search),
                 order = params.data.order.toUpperCase(),
                 paramszapi = {
                     limit: 100,
-                    host: searchData.host,
+                    host: searchHost,
                     selectHosts: "extend",
                     selectLastEvent: true,
                     only_true: true,
@@ -17,7 +18,7 @@ define(['jquery', 'zabbix', 'actions/event', 'searcher', 'bootstraptable', 'boot
                     expandExpression: true,
                     expandDescription: true,
                     search: {
-                        description: searchData.description
+                        description: searchDescription
                     },
                     filter: {
                         value: 1

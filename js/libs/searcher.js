@@ -30,6 +30,27 @@ define([], function () {
                 description: searchDescription
             };
             return searchData;
+        },
+        host: function (searchText) {
+            var regexObj = /([Hh]ost:)[^,]+/,
+                regexTest = /([Hh]ost:)/;
+            return this.excluder(regexObj, regexTest, searchText);
+            
+        },
+        description: function (searchText) {
+            var regexObj = /([D|d]escription:)[^,]+/,
+                regexTest = /([Dd]escription)/;
+            return this.excluder(regexObj, regexTest, searchText);
+        },
+        excluder: function (regexObj, regexTest, searchText) {
+            var retText = undefined;
+            if ( regexTest.test(searchText)) {
+                var value = regexObj.exec(searchText);
+                if ( value !== null ) {
+                    retText = (value[0]).replace(regexTest, "");
+                }
+            }
+            return retText;
         }
     }
 });
