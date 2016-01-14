@@ -1,4 +1,5 @@
-define(['jquery', 'zabbix', 'actions/event', 'searcher', 'bootstraptable'], function( $, zabbix, event, searcher ) {
+define(['jquery', 'zabbix', 'actions/event', 'searcher', 'bootstraptable', 'bootstrapswitch'], function( $, zabbix, event, searcher ) {
+    $acknowledgeSwitch = undefined;
     return {
         triggerGet: function (params, acknowledgedState) {
             var searchData = searcher.searcher(params.data.search),
@@ -29,9 +30,19 @@ define(['jquery', 'zabbix', 'actions/event', 'searcher', 'bootstraptable'], func
             };
             zabbix.tableLoad(params, "trigger.get", paramszapi);
         },
-        hostFilter: function () {
+        toolbar: function () {
+            $acknowledgeSwitch = $("[name='showAcknowledge']");
+            $acknowledgeSwitch.bootstrapSwitch();
+        },
+        filter: function () {
             $triggertable.on('click', 'td.host a', function() {
                 $triggertable.bootstrapTable('resetSearch', "Host:" + $( this).text());
+            });
+            $acknowledgeSwitch.on('switchChange.bootstrapSwitch', function(event, state) {
+                $triggertable.bootstrapTable('refresh');
+            });
+            $( '#resetSearch').on('click', function() {
+                $triggertable.bootstrapTable('resetSearch');
             });
         },
         triggerCount: function ( object, severity) {

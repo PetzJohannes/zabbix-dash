@@ -68,11 +68,10 @@
 
 <script>
     require(['main'], function () {
-        require(['actions/trigger', 'libs/formatter', 'domready', 'bootstraptable', 'bootstrapswitch'], function (methods, formatter, domReady) {
+        require(['actions/trigger', 'libs/formatter', 'domready', 'bootstraptable'], function (trigger, formatter, domReady) {
             domReady( function () {
-                var $acknowledgeSwitch = $("[name='showAcknowledge']");
-                $acknowledgeSwitch.bootstrapSwitch();
-                methods.eventAcknowledge();
+                trigger.toolbar();
+                trigger.eventAcknowledge();
                 formatTime = function (value) {
                     return formatter.getHumanTime(value);
                 };
@@ -86,19 +85,13 @@
                     return formatter.hostElement(value);
                 };
                 triggerGet = function (params) {
-                    methods.triggerGet(params, $acknowledgeSwitch.bootstrapSwitch('state'));
+                    trigger.triggerGet(params, $acknowledgeSwitch.bootstrapSwitch('state'));
                 };
                 $triggertable = $('#triggertable');
                 $triggertable.bootstrapTable({
                     ajax: "triggerGet"
                 });
-                $acknowledgeSwitch.on('switchChange.bootstrapSwitch', function(event, state) {
-                    $triggertable.bootstrapTable('refresh');
-                });
-                $( '#resetSearch').on('click', function() {
-                    $triggertable.bootstrapTable('resetSearch');
-                });
-                methods.hostFilter();
+                trigger.filter();
             });
         });
     });
