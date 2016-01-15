@@ -4,8 +4,11 @@ define(['jquery', 'zabbix', 'actions/event', 'searcher', 'bootstraptable', 'boot
         triggerGet: function (params, acknowledgedState) {
             var searchHost = searcher.host(params.data.search),
                 searchDescription = searcher.description(params.data.search),
-                order = params.data.order.toUpperCase(),
-                paramszapi = {
+                order = params.data.order.toUpperCase();
+            if (searchHost === undefined && searchDescription === undefined ) {
+                searchDescription = params.data.search;
+            }
+            var paramszapi = {
                     limit: 100,
                     host: searchHost,
                     selectHosts: "extend",
@@ -28,7 +31,7 @@ define(['jquery', 'zabbix', 'actions/event', 'searcher', 'bootstraptable', 'boot
                 paramszapi = $.extend({
                     withLastEventUnacknowledged: true,
                 }, paramszapi);
-            };
+            }
             zabbix.tableLoad(params, "trigger.get", paramszapi);
         },
         toolbar: function () {
