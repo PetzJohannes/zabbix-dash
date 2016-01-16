@@ -47,7 +47,22 @@
             data-off-text="All"
             data-on-color="danger"
             data-off-color="success"
+            data-inverse="true"
             >
+    <div class="btn-group">
+        <button id="resetpriority" type="button" class="btn btn-xs btn-info">Min. priority</button>
+        <button id="priorityfilter" data-priority-filter="0" type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Not classified  <span class="caret"></span>
+        </button>
+        <ul id="priorityfilterlist" class="dropdown-menu">
+            <li><a href="#" data-priority-filter="0">Not classified</a></li>
+            <li><a href="#" data-priority-filter="1">Information</a></li>
+            <li><a href="#" data-priority-filter="2">Warning</a></li>
+            <li><a href="#" data-priority-filter="3">Average</a></li>
+            <li><a href="#" data-priority-filter="4">High</a></li>
+            <li><a href="#" data-priority-filter="5">Disaster</a></li>
+        </ul>
+    </div>
 </div>
 <table id="triggertable"
        data-show-refresh="true"
@@ -72,8 +87,8 @@
     require(['main'], function () {
         require(['actions/trigger', 'libs/formatter', 'domready', 'bootstraptable'], function (trigger, formatter, domReady) {
             domReady( function () {
-                trigger.toolbar();
                 trigger.eventAcknowledge();
+                trigger.filter();
                 formatTime = function (value) {
                     return formatter.getHumanTime(value);
                 };
@@ -87,13 +102,13 @@
                     return formatter.hostElement(value);
                 };
                 triggerGet = function (params) {
+                    var $acknowledgeSwitch = $("[name='showAcknowledge']");
                     trigger.triggerGet(params, $acknowledgeSwitch.bootstrapSwitch('state'));
                 };
-                $triggertable = $('#triggertable');
+                var $triggertable = $('#triggertable');
                 $triggertable.bootstrapTable({
                     ajax: "triggerGet"
                 });
-                trigger.filter();
             });
         });
     });

@@ -26,7 +26,7 @@ define(['zabbix'], function(zabbix) {
                     returnval = 'Not classified';
                     break;
             }
-            return '<span class="label trigger-label-' + returnval.toLowerCase().replace(/\s/g, '') + ' label-font-color">' + returnval + '</span>';
+            return '<span class="label trigger-label-' + returnval.toLowerCase().replace(/\s/g, '') + ' trigger-label-font-color">' + returnval + '</span>';
         },
         acknowledgeState: function (value) {
             var type = "success",

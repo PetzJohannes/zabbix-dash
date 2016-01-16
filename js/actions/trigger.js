@@ -1,10 +1,10 @@
 define(['jquery', 'zabbix', 'actions/event', 'searcher', 'bootstraptable', 'bootstrapswitch'], function( $, zabbix, event, searcher ) {
-    $acknowledgeSwitch = undefined;
     return {
         triggerGet: function (params, acknowledgedState) {
             var searchHost = searcher.host(params.data.search),
                 searchDescription = searcher.description(params.data.search),
-                order = params.data.order.toUpperCase();
+                order = params.data.order.toUpperCase(),
+                priority = $( '#priorityfilter' ).data('priority-filter');
             if (searchHost === undefined && searchDescription === undefined ) {
                 searchDescription = params.data.search;
             }
@@ -18,6 +18,7 @@ define(['jquery', 'zabbix', 'actions/event', 'searcher', 'bootstraptable', 'boot
                     active: true,
                     skipDependent: true,
                     sortfield: params.data.sort,
+                    min_severity: priority,
                     expandExpression: true,
                     expandDescription: true,
                     search: {
@@ -34,11 +35,16 @@ define(['jquery', 'zabbix', 'actions/event', 'searcher', 'bootstraptable', 'boot
             }
             zabbix.tableLoad(params, "trigger.get", paramszapi);
         },
-        toolbar: function () {
-            $acknowledgeSwitch = $("[name='showAcknowledge']");
-            $acknowledgeSwitch.bootstrapSwitch();
-        },
         filter: function () {
+            var $priorityfilter = $( '#priorityfilter'),
+                $triggertable = $('#triggertable'),
+                $acknowledgeSwitch = $("[name='showAcknowledge']"),
+                prioritytext = localStorage.getItem("trigger-filter-priority-text");
+            $acknowledgeSwitch.bootstrapSwitch();
+            $priorityfilter.data('priority-filter', localStorage.getItem("trigger-filter-priority-value"));
+            if ( prioritytext !== null ) {
+                $priorityfilter.html(prioritytext + ' <span class="caret"></span>');
+            }
             $triggertable.on('click', 'td.host a', function() {
                 $triggertable.bootstrapTable('resetSearch', "Host:" + $( this).text());
             });
@@ -47,6 +53,21 @@ define(['jquery', 'zabbix', 'actions/event', 'searcher', 'bootstraptable', 'boot
             });
             $( '#resetSearch').on('click', function() {
                 $triggertable.bootstrapTable('resetSearch');
+            });
+            $( '#priorityfilterlist li a').on('click', function() {
+                var $prioelement = $( this),
+                    priovalue = $prioelement.data('priority-filter'),
+                    priotext = $prioelement.text();
+                $priorityfilter.data('priority-filter', priovalue);
+                $priorityfilter.html(priotext + ' <span class="caret"></span>');
+                $triggertable.bootstrapTable('refresh');
+                localStorage.setItem("trigger-filter-priority-value", priovalue);
+                localStorage.setItem("trigger-filter-priority-text", priotext);
+            });
+            $( '#resetpriority').on('click', function() {
+                $priorityfilter.data('priority-filter', 0);
+                $priorityfilter.html('Not classified <span class="caret"></span>');
+                $triggertable.bootstrapTable('refresh');
             });
         },
         triggerCount: function ( object, severity) {

@@ -4,7 +4,7 @@
 }
 
 .trigger-label-font-color {
-    color: #eee;
+    color: #000;
 }
 
 .trigger-label-disaster {
@@ -65,7 +65,7 @@ thead th {
 
 .color-swatches {
     margin: 0 -5px;
-    overflow: hidden
+    overflow: hidden;
 }
 
 .color-swatch {
