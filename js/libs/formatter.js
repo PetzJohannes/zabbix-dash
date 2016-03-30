@@ -64,6 +64,9 @@ define(['zabbix'], function(zabbix) {
         formatNumWithText: function (value, text) {
             return '<a href="#">' + text + ' <span class="badge">' + value + '</span></a>';
         },
+        formatLatestData: function (value) {
+            return '<a href="?view=latestdata&hostid=' + value + '">Latest data</a>';
+        },
         formatInterfaceData: function (value) {
             var interfaces = {
                     agent: {

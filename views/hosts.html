@@ -15,6 +15,7 @@
           <th data-field="httpTests" data-formatter="formatWeb">Web</th>
           <th data-field="interfaces" data-formatter="formatInterfaces">Interfaces</th>
           <th data-field="status" data-formatter="formatStatus" data-sortable="true">Status</th>
+          <th data-field="hostid" data-formatter="formatLatestData">Latest data</th>
       </tr>
     </thead>
 </table>
@@ -47,6 +48,9 @@
                 };
                 formatInterfaces = function (value) {
                     return formatter.formatInterfaceData(value);
+                };
+                formatLatestData = function (value) {
+                    return formatter.formatLatestData(value);
                 };
                 $table.bootstrapTable({
                     ajax: "hostsGet"
