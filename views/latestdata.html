@@ -1,0 +1,59 @@
+<ol class="breadcrumb">
+    <li class="active">HOST</li>
+</ol>
+<table id="latestdatatable"
+       data-side-pagination="server"
+       data-sort-name="name"
+       data-detail-view="true"
+>
+    <thead>
+    <tr>
+        <th data-field="name">Application</th>
+    </tr>
+    </thead>
+</table>
+
+<script>
+    require(['main'], function () {
+        require(['actions/latestdata', 'domready', 'actions/application', 'actions/item', 'loader', 'bootstraptable'], function (latestdata, domReady, application, item, loader) {
+            domReady(function () {
+                var $dataicons = {
+                        detailOpen: 'glyphicon glyphicon-menu-right',
+                        detailClose: 'glyphicon glyphicon-menu-down'
+                    },
+                    $latestdatatable = $('#latestdatatable');
+
+                getHostApplications = function (params) {
+                    var hostid = loader.urlGetter('hostid');
+                    application.getHostApplications(params, hostid);
+                };
+
+                getApplicationItems = function (params) {
+                    var applicationid = params.applicationid;
+                    delete params.applicationid;
+                    item.getApplicationItems(params, applicationid);
+                };
+
+                $latestdatatable.attr('data-icons', "$dataicons");
+                $latestdatatable.bootstrapTable({
+                    ajax: "getHostApplications",
+                    icons: $dataicons,
+                    onExpandRow: function (index, row, $detail) {
+                        $detail.html('<table id="' + row.applicationid + '" data-side-pagination="server">' +
+                                '<thead><tr>' +
+                                '<th data-field="name">Name</th>' +
+                                '<th data-field="lastclock">Last Check</th>' +
+                                '<th data-field="lastvalue">Last Value</th>' +
+                                '<th data-field="state" data-width="2%" data-align="center">Status</th>' +
+                                '</tr></thead></table>');
+                        var $table = $('#' + row.applicationid);
+                        $table.bootstrapTable({
+                            ajax: "getApplicationItems",
+                            ajaxOptions: {applicationid: row.applicationid}
+                        });
+                    }
+                });
+            });
+        });
+    });
+</script>

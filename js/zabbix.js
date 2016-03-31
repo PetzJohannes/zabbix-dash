@@ -33,7 +33,8 @@ define(['jquery'], function () {
             this.zabbixAjax("user.login", params, success, error, false);
         },
         tableLoad: function (tableObject, method, params) {
-            var success = function(response, status) {
+            var success = function (response, status) {
+                console.log(response);
                 tableObject.success({
                     rows: response.result
                 });
