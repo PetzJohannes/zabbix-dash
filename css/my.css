@@ -135,3 +135,8 @@ textarea {
 .no-bottom-buffer {
     margin-bottom: 0px;
 }
+
+.itemInfo {
+    display: inline;
+    padding: 3px;
+}

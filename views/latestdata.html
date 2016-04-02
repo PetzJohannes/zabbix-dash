@@ -17,6 +17,10 @@
     require(['main'], function () {
         require(['actions/latestdata', 'domready', 'actions/application', 'actions/item', 'loader', 'bootstraptable'], function (latestdata, domReady, application, item, loader) {
             domReady(function () {
+                $(function () {
+                    $('[data-toggle="tooltip"]').tooltip()
+                });
+
                 var $dataicons = {
                         detailOpen: 'glyphicon glyphicon-menu-right',
                         detailClose: 'glyphicon glyphicon-menu-down'
@@ -35,7 +39,16 @@
                 };
 
                 formatItemName = function (value, itemobject) {
-                    return item.formatItemValue(value, itemobject.key_);
+                    return item.formatItemName(value, itemobject.key_);
+                };
+
+                formatItemState = function (value, itemobject) {
+                    return item.formatItemState(value, itemobject.error);
+                };
+
+                formatItemValue = function (value, itemobject, dings) {
+                    console.log(itemobject);
+                    return item.formatItemValue(value, itemobject.units, itemobject.valuemapid);
                 };
 
                 $latestdatatable.attr('data-icons', "$dataicons");
@@ -43,18 +56,7 @@
                     ajax: "getHostApplications",
                     icons: $dataicons,
                     onExpandRow: function (index, row, $detail) {
-                        $detail.html('<table id="' + row.applicationid + '" data-side-pagination="server" data-classes="table table-no-bordered">' +
-                                '<thead><tr>' +
-                                '<th data-field="name" data-formatter="formatItemName">Name</th>' +
-                                '<th data-field="lastclock">Last Check</th>' +
-                                '<th data-field="lastvalue">Last Value</th>' +
-                                '<th data-field="state" data-width="2%" data-align="center">Status</th>' +
-                                '</tr></thead></table>');
-                        var $table = $('#' + row.applicationid);
-                        $table.bootstrapTable({
-                            ajax: "getApplicationItems",
-                            ajaxOptions: {applicationid: row.applicationid}
-                        });
+                        latestdata.expandRow(index, row, $detail)
                     }
                 });
             });

@@ -34,7 +34,7 @@ define(['jquery'], function () {
         },
         tableLoad: function (tableObject, method, params) {
             var success = function (response, status) {
-                console.log(response);
+                //console.log(response);
                 tableObject.success({
                     rows: response.result
                 });
