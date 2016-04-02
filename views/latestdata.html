@@ -39,7 +39,7 @@
                     ajax: "getHostApplications",
                     icons: $dataicons,
                     onExpandRow: function (index, row, $detail) {
-                        $detail.html('<table id="' + row.applicationid + '" data-side-pagination="server">' +
+                        $detail.html('<table id="' + row.applicationid + '" data-side-pagination="server" data-classes="table table-no-bordered">' +
                                 '<thead><tr>' +
                                 '<th data-field="name">Name</th>' +
                                 '<th data-field="lastclock">Last Check</th>' +
