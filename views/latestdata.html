@@ -34,6 +34,10 @@
                     item.getApplicationItems(params, applicationid);
                 };
 
+                formatItemName = function (value, itemobject) {
+                    return item.formatItemValue(value, itemobject.key_);
+                };
+
                 $latestdatatable.attr('data-icons', "$dataicons");
                 $latestdatatable.bootstrapTable({
                     ajax: "getHostApplications",
@@ -41,7 +45,7 @@
                     onExpandRow: function (index, row, $detail) {
                         $detail.html('<table id="' + row.applicationid + '" data-side-pagination="server" data-classes="table table-no-bordered">' +
                                 '<thead><tr>' +
-                                '<th data-field="name">Name</th>' +
+                                '<th data-field="name" data-formatter="formatItemName">Name</th>' +
                                 '<th data-field="lastclock">Last Check</th>' +
                                 '<th data-field="lastvalue">Last Value</th>' +
                                 '<th data-field="state" data-width="2%" data-align="center">Status</th>' +
