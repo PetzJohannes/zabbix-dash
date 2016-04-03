@@ -23,8 +23,15 @@ define(['jquery', 'zabbix'], function( $, zabbix ) {
             }
             return state;
         },
-        formatItemValue: function (value, unit, valuemapping) {
-            var lastvalue = value + " " + unit;
+        formatItemValue: function (value, unit, valuemapping, itemid, rowid) {
+            var filler = function () {
+                    if (unit === "") {
+                        return ""
+                    } else {
+                        return " "
+                    }
+                },
+                lastvalue = value + filler() + unit;
             if (valuemapping !== "0") {
                 var paramszapi = {
                         valuemapids: valuemapping,
@@ -34,7 +41,12 @@ define(['jquery', 'zabbix'], function( $, zabbix ) {
                         var mappings = response.result[0]["mappings"];
                         for (var i in mappings) {
                             if (mappings[i]["value"] === value) {
-                                return mappings[i]["newvalue"];
+                                var $table = $( 'tr[data-uniqueid="' + itemid + '"]').closest('table');
+                                $table.bootstrapTable('updateCell', {
+                                    index: rowid,
+                                    field: "lastvalue",
+                                    value: mappings[i]["newvalue"] + " (" + lastvalue + ")"
+                                });
                                 break;
                             }
                         }

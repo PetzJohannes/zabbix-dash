@@ -1,7 +1,12 @@
 define(['jquery', 'zabbix'], function( $, zabbix ) {
     return {
         expandRow: function (index, row, $detail) {
-            $detail.html('<table id="' + row.applicationid + '" data-side-pagination="server" data-classes="table table-no-bordered">' +
+            $detail.html('<table id="' + row.applicationid + '" ' +
+                'data-side-pagination="server" ' +
+                'data-classes="table table-no-bordered" ' +
+                'data-id-field="itemid" ' +
+                'data-unique-id="itemid"' +
+                '>' +
                 '<thead><tr>' +
                 '<th data-field="name" data-formatter="formatItemName">Name</th>' +
                 '<th data-field="lastclock">Last Check</th>' +

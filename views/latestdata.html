@@ -46,9 +46,8 @@
                     return item.formatItemState(value, itemobject.error);
                 };
 
-                formatItemValue = function (value, itemobject, dings) {
-                    console.log(itemobject);
-                    return item.formatItemValue(value, itemobject.units, itemobject.valuemapid);
+                formatItemValue = function (value, itemobject, rowid) {
+                    return item.formatItemValue(value, itemobject.units, itemobject.valuemapid, itemobject.itemid, rowid);
                 };
 
                 $latestdatatable.attr('data-icons', "$dataicons");
