@@ -2,9 +2,9 @@ define(['zabbix'], function(zabbix) {
     return {
         getHumanTime: function (value) {
             var timeval = new Date(value*1000);
-            return this.leadingZero(timeval.getDate()) + "." +
+            return timeval.getFullYear() + " " +
                 this.leadingZero((timeval.getMonth()+1)) + "." +
-                timeval.getFullYear() + " " +
+                this.leadingZero(timeval.getDate()) + "." +
                 this.leadingZero(timeval.getHours()) + ":" +
                 this.leadingZero(timeval.getMinutes()) + ":" +
                 this.leadingZero(timeval.getSeconds());
