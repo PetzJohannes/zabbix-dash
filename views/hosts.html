@@ -22,7 +22,7 @@
 
 <script>
     require(['main'], function () {
-        require(['actions/hosts', 'libs/formatter', 'domready', 'bootstraptable'], function (methods, formatter, domReady) {
+        require(['../js/actions/host', 'libs/formatter', 'domready', 'bootstraptable'], function (methods, formatter, domReady) {
             domReady( function () {
                 var $table = $('#hosttable');
                 hostsGet = function (params) {

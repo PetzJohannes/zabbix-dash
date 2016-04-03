@@ -1,5 +1,5 @@
 <ol class="breadcrumb">
-    <li class="active">HOST</li>
+    <li id="latestdata-host" class="active">HOST</li>
 </ol>
 <table id="latestdatatable"
        data-side-pagination="server"
@@ -15,7 +15,7 @@
 
 <script>
     require(['main'], function () {
-        require(['actions/latestdata', 'domready', 'actions/application', 'actions/item', 'loader', 'libs/formatter', 'bootstraptable'], function (latestdata, domReady, application, item, loader, formatter) {
+        require(['actions/latestdata', 'domready', 'actions/application', 'actions/item', 'loader', 'libs/formatter', 'actions/host', 'bootstraptable'], function (latestdata, domReady, application, item, loader, formatter, host) {
             domReady(function () {
                 $(function () {
                     $('[data-toggle="tooltip"]').tooltip()
@@ -25,10 +25,10 @@
                         detailOpen: 'glyphicon glyphicon-menu-right',
                         detailClose: 'glyphicon glyphicon-menu-down'
                     },
-                    $latestdatatable = $('#latestdatatable');
+                    $latestdatatable = $('#latestdatatable'),
+                    hostid = loader.urlGetter('hostid');
 
                 getHostApplications = function (params) {
-                    var hostid = loader.urlGetter('hostid');
                     application.getHostApplications(params, hostid);
                 };
 
@@ -53,6 +53,8 @@
                 getHumanTime = function (value) {
                     return formatter.getHumanTime(value);
                 };
+
+                host.getHostName(hostid, $( '#latestdata-host' ));
 
                 $latestdatatable.attr('data-icons', "$dataicons");
                 $latestdatatable.bootstrapTable({

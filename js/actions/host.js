@@ -17,6 +17,16 @@ define(['jquery', 'zabbix'], function( $, zabbix ) {
                     }
                 };
             zabbix.tableLoad(params, "host.get", paramszapi);
+        },
+        getHostName: function (hostid, $textobject) {
+            var paramszapi = {
+                    output: ["name"],
+                    hostids: hostid
+                },
+                success = function (response) {
+                    $textobject.text(response.result[0]["name"])
+                };
+            zabbix.zabbixAjax("host.get", paramszapi, success)
         }
     }
 });
