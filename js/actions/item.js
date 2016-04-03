@@ -8,12 +8,17 @@ define(['jquery', 'zabbix'], function( $, zabbix ) {
             zabbix.tableLoad(params, "item.get", paramszapi);
         },
         formatItemName: function (value, key) {
-            if (/\$[0-9]*/.test(value)) {
-                var position = (/\$[0-9]*/.exec(value))[0].substr(1),
-                    keyvalues = key.match(/\[(.*?)\]/)[1].split(",");
-                value = value.replace("$" + position, keyvalues[position-1]);
+            if (/\[(.*?)\]/.test(key)) {
+                var keyvalues = key.match(/\[(.*?)\]/)[1].split(",");
+            }
+            while (/\$[0-9]*/.test(value)) {
+                value = this.changeParameterToHumanRead(value, keyvalues);
             }
             return value;
+        },
+        changeParameterToHumanRead: function (string, keyvalues) {
+            var position = (/\$[0-9]*/.exec(string))[0].substr(1);
+            return string.replace("$" + position, keyvalues[position-1]);
         },
         formatItemState: function (value, message) {
             if (value == "1") {
