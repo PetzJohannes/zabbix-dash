@@ -1,8 +1,16 @@
 define(['zabbix'], function(zabbix) {
     return {
         getHumanTime: function (value) {
-            timeval = new Date(value*1000);
-            return timeval.getDate() + "." + (timeval.getMonth()+1) + "." + timeval.getFullYear() + " " + timeval.getHours() + ":" + timeval.getMinutes() + ":" + timeval.getSeconds() + "Uhr";
+            var timeval = new Date(value*1000);
+            return this.leadingZero(timeval.getDate()) + "." +
+                this.leadingZero((timeval.getMonth()+1)) + "." +
+                timeval.getFullYear() + " " +
+                this.leadingZero(timeval.getHours()) + ":" +
+                this.leadingZero(timeval.getMinutes()) + ":" +
+                this.leadingZero(timeval.getSeconds()) + "Uhr";
+        },
+        leadingZero: function (value) {
+            return ('0' + value).slice(-2);
         },
         priority: function (value) {
             var returnval = 'Not classified';
