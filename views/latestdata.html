@@ -15,7 +15,7 @@
 
 <script>
     require(['main'], function () {
-        require(['actions/latestdata', 'domready', 'actions/application', 'actions/item', 'loader', 'bootstraptable'], function (latestdata, domReady, application, item, loader) {
+        require(['actions/latestdata', 'domready', 'actions/application', 'actions/item', 'loader', 'libs/formatter', 'bootstraptable'], function (latestdata, domReady, application, item, loader, formatter) {
             domReady(function () {
                 $(function () {
                     $('[data-toggle="tooltip"]').tooltip()
@@ -48,6 +48,10 @@
 
                 formatItemValue = function (value, itemobject, rowid) {
                     return item.formatItemValue(value, itemobject.units, itemobject.valuemapid, itemobject.itemid, rowid);
+                };
+
+                getHumanTime = function (value) {
+                    return formatter.getHumanTime(value);
                 };
 
                 $latestdatatable.attr('data-icons', "$dataicons");
