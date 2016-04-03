@@ -7,7 +7,7 @@ define(['zabbix'], function(zabbix) {
                 timeval.getFullYear() + " " +
                 this.leadingZero(timeval.getHours()) + ":" +
                 this.leadingZero(timeval.getMinutes()) + ":" +
-                this.leadingZero(timeval.getSeconds()) + "Uhr";
+                this.leadingZero(timeval.getSeconds());
         },
         leadingZero: function (value) {
             return ('0' + value).slice(-2);
