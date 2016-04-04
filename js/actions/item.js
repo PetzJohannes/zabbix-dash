@@ -1,4 +1,4 @@
-define(['jquery', 'zabbix'], function( $, zabbix ) {
+define(['jquery', 'zabbix', 'libs/formatter'], function( $, zabbix, formatter ) {
     return {
         getApplicationItems: function (params, applicationid) {
             var paramszapi = {
@@ -52,11 +52,11 @@ define(['jquery', 'zabbix'], function( $, zabbix ) {
                             break;
                         }
                     }
-                    //console.log(value);
+                    value = Math.round(value * 100) / 100;
                     break;
-            }
-            if (valuetype === "0" || valuetype === "3") {
-                value = Math.round(value * 100) / 100;
+                case "unixtime":
+                    value = formatter.getHumanTime(value);
+                    unit = "";
             }
             var filler = (unit === "") ? "" : " ",
                 lastvalue = value + filler + unit;
