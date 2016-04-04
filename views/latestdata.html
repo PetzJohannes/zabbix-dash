@@ -47,7 +47,11 @@
                 };
 
                 formatItemValue = function (value, itemobject, rowid) {
-                    return item.formatItemValue(value, itemobject.units, itemobject.valuemapid, itemobject.itemid, rowid);
+                    return item.formatItemValue(value, itemobject.units, itemobject.valuemapid, itemobject.value_type, itemobject.itemid, rowid);
+                };
+
+                formatPrevItemValue = function (value, itemobject) {
+                    return item.formatPrevItemValue(value, itemobject.lastvalue, itemobject.value_type);
                 };
 
                 getHumanTime = function (value) {
